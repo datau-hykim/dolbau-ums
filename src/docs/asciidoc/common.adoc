@@ -1,0 +1,7 @@
+== 공통
+
+=== API 규격
+
+=== 상태코드(HttpStatus)
+[[error]]
+include::{snippets}/errorcode-response/errorcode-response-fields.adoc[]
