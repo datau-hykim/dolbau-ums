@@ -2,7 +2,6 @@ package com.example.demo.api.v1.event.dto;
 
 import com.example.demo.api.v1.event.entity.Event;
 import lombok.*;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 public class EventDTO {
 

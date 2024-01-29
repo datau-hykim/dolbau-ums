@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 public class EventService {
     private final EventMapper eventMapper;
 
-    public EventDTO.Response getEvent(String eventId) {
-        return new EventDTO.Response(this.eventMapper.selectEventById(eventId));
+    public EventDTO.Response getEvent(EventDTO.ApplyRequest params) {
+        return new EventDTO.Response(this.eventMapper.selectEventById(params.toEntity()));
     }
 
     public List<EventDTO.Response> getEventList() {
@@ -28,7 +28,7 @@ public class EventService {
     }
 
     public void applyEvent(EventDTO.ApplyRequest params) {
-        this.eventMapper.insertEventApply(params);
+        this.eventMapper.insertEventApply(params.toEntity());
     }
 
 }

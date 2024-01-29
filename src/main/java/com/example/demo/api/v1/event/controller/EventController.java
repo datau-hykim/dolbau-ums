@@ -1,7 +1,7 @@
 package com.example.demo.api.v1.event.controller;
 
+import com.example.demo.annotation.AuthParam;
 import com.example.demo.api.v1.event.dto.EventDTO;
-import com.example.demo.api.v1.event.entity.Event;
 import com.example.demo.api.v1.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,21 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-/**
- * URI 컨벤션
- * URI는 스네이크 케이스와 소문자 사용
- *
- */
-
-/**
- * Controller 메서드 명을 작성 할 때는 아래와 같은 접미사를 붙인다.
- * eventList() – 목록 조회 유형의 서비스
- * eventDetail() – 단 건 상세 조회 유형의 controller 메서드
- * eventSave() – 등록/수정/삭제 가 동시에 일어나는 유형의 controller 메서드
- * eventAdd() – 등록만 하는 유형의 controller 메서드
- * eventModify() – 수정만 하는 유형의 controller 메서드
- * eventRemove() – 삭제만 하는 유형의 controller 메서드
- */
 
 @RestController
 @Slf4j
@@ -44,17 +29,21 @@ public class EventController {
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public EventDTO.Response eventDetail(@PathVariable String eventId){
-        return this.eventService.getEvent(eventId);
+    public EventDTO.Response eventDetail(@PathVariable int eventId){
+        return this.eventService.getEvent(EventDTO.ApplyRequest.builder()
+                .eventId(eventId)
+                .build()
+        );
     }
 
     @PutMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void applyEvent(@PathVariable int eventId){
+    public void applyEvent(@PathVariable int eventId, @AuthParam int memberId){
         this.eventService.applyEvent(
                 EventDTO.ApplyRequest.builder()
                         .eventId(eventId)
+                        .memberId(memberId)
                         .build()
         );
     }

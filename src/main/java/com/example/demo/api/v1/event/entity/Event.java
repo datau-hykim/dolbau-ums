@@ -3,7 +3,6 @@ package com.example.demo.api.v1.event.entity;
 import lombok.*;
 
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
