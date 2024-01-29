@@ -89,7 +89,7 @@ public class EventController {
         );
     }
 
-    @PostMapping("/{eventId}/apply/{applyId}/address")
+    @PostMapping("/{eventId}/winning/{winningId}/address")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> saveEventApplyAddress(@PathVariable String eventId,
                                                    @PathVariable String applyId,
