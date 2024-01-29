@@ -2,13 +2,13 @@ package com.example.demo.api.v1.event.service;
 
 import com.example.demo.api.v1.event.dto.EventDTO;
 import com.example.demo.api.v1.event.entity.Event;
-import com.example.demo.api.v1.event.entity.EventApply;
 import com.example.demo.api.v1.event.mapper.EventMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -17,32 +17,18 @@ import java.util.List;
 public class EventService {
     private final EventMapper eventMapper;
 
-    public Event getEvent(String eventId) {
-        return this.eventMapper.selectEventById(eventId);
+    public EventDTO.Response getEvent(String eventId) {
+        return new EventDTO.Response(this.eventMapper.selectEventById(eventId));
     }
 
-    public List<Event> getEventList() {
-        return this.eventMapper.selectEventList();
+    public List<EventDTO.Response> getEventList() {
+        List<Event> eventList = this.eventMapper.selectEventList();
+        return eventList.stream().map(EventDTO.Response::new)
+                .collect(Collectors.toList());
     }
 
-    public EventApply confirmEventApply(EventDTO.EventApplyRequest params) {
-        EventApply eventApply = this.getEventApply(params);
-
-        if(eventApply == null) {
-            this.eventMapper.insertEventApplyConfirm(params);
-            eventApply = this.getEventApply(params);
-        }
-
-        return eventApply;
-    }
-
-    public EventApply getEventApply(EventDTO.EventApplyRequest params) {
-        return this.eventMapper.selectEventApplyById(params);
-    }
-
-    public EventApply applyEvent(EventDTO.EventApplyRequest params) {
+    public void applyEvent(EventDTO.ApplyRequest params) {
         this.eventMapper.insertEventApply(params);
-        return this.getEventApply(params);
     }
 
 }

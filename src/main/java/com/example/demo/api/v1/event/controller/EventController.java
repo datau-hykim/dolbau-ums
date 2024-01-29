@@ -2,12 +2,10 @@ package com.example.demo.api.v1.event.controller;
 
 import com.example.demo.api.v1.event.dto.EventDTO;
 import com.example.demo.api.v1.event.entity.Event;
-import com.example.demo.api.v1.event.entity.EventApply;
 import com.example.demo.api.v1.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,62 +37,26 @@ public class EventController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<Event> eventList(){
+    public List<EventDTO.Response> eventList(){
         return this.eventService.getEventList();
     }
 
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Event eventDetail(@PathVariable String eventId){
+    public EventDTO.Response eventDetail(@PathVariable String eventId){
         return this.eventService.getEvent(eventId);
     }
 
-
-    @GetMapping("/{eventId}/apply/{applyId}")
+    @PutMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public EventApply eventApplyDetail(@PathVariable String eventId, @PathVariable String applyId){
-        return this.eventService.getEventApply(
-                EventDTO.EventApplyRequest.builder()
-                .eventId(eventId)
-                .applyId(applyId)
-                .memberId("")
-                .build()
-        );
-    }
-
-    @PostMapping("/{eventId}/apply")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public EventApply applyEvent(@PathVariable String eventId){
-        return this.eventService.applyEvent(
-                EventDTO.EventApplyRequest.builder()
+    public void applyEvent(@PathVariable int eventId){
+        this.eventService.applyEvent(
+                EventDTO.ApplyRequest.builder()
                         .eventId(eventId)
-                        .memberId("")
                         .build()
         );
     }
 
-    @PostMapping("/{eventId}/apply/{applyId}/confirm")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public EventApply confirmApplyEvent(@PathVariable String eventId, @PathVariable String applyId){
-        return this.eventService.confirmEventApply(
-                EventDTO.EventApplyRequest.builder()
-                        .eventId(eventId)
-                        .applyId(applyId)
-                        .memberId("")
-                        .build()
-        );
-    }
-
-    @PostMapping("/{eventId}/winning/{winningId}/address")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> saveEventApplyAddress(@PathVariable String eventId,
-                                                   @PathVariable String applyId,
-                                                   @RequestBody EventDTO.ApplyAddressRequest applyAddress
-                                                   ){
-        return ResponseEntity.status(HttpStatus.OK).body("");
-    }
 }
