@@ -1,7 +1,7 @@
 package com.example.demo.api.v1.event.controller;
 
 import com.example.demo.annotation.AuthParam;
-import com.example.demo.api.v1.event.dto.EventDTO;
+import com.example.demo.api.v1.event.dto.EventDto;
 import com.example.demo.api.v1.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,15 +22,15 @@ public class EventController {
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public List<EventDTO.Response> eventList(){
+    public List<EventDto.Response> eventList(){
         return this.eventService.getEventList();
     }
 
     @GetMapping("/{eventId}")
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public EventDTO.Response eventDetail(@PathVariable int eventId){
-        return this.eventService.getEvent(EventDTO.ApplyRequest.builder()
+    public EventDto.Response eventDetail(@PathVariable int eventId){
+        return this.eventService.getEvent(EventDto.ApplyRequest.builder()
                 .eventId(eventId)
                 .build()
         );
@@ -41,7 +41,7 @@ public class EventController {
     @ResponseBody
     public void applyEvent(@PathVariable int eventId, @AuthParam int memberId){
         this.eventService.applyEvent(
-                EventDTO.ApplyRequest.builder()
+                EventDto.ApplyRequest.builder()
                         .eventId(eventId)
                         .memberId(memberId)
                         .build()

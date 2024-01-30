@@ -3,13 +3,10 @@ package com.example.demo.api.v1.event.dto;
 import com.example.demo.api.v1.event.entity.Event;
 import lombok.*;
 
-public class EventDTO {
-
-
+public class EventDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class ApplyRequest {
-
         private int eventId;
         private int memberId;
 
@@ -36,10 +33,8 @@ public class EventDTO {
         private int winningQuantity;
         private int orderNum;
         private String mainImgUrl;
-        private String thumbnailImgUrl;
+        private String thumbImgUrl;
         private String detailImgFileUrl;
-        private int applicantId;
-        private long applicantDtm;
 
         @Builder
         public Response(Event event) {
@@ -49,10 +44,8 @@ public class EventDTO {
             this.winningQuantity = event.getWinningQuantity();
             this.orderNum = event.getOrderNum();
             this.mainImgUrl = event.getMainImgUrl();
-            this.thumbnailImgUrl = event.getThumbnailImgUrl();
+            this.thumbImgUrl = event.getThumbImgUrl();
             this.detailImgFileUrl = event.getDetailImgUrl();
-            this.applicantId = event.getApplicantId();
-            this.applicantDtm = event.getApplicantDtm();
         }
     }
 
