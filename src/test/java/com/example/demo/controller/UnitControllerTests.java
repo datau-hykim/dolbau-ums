@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.ApiDocumentationTest;
+import com.example.demo.dto.EventDto;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.ResultActions;
 
+import java.time.LocalDateTime;
+
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.*;
@@ -30,12 +33,14 @@ class UnitControllerTests extends ApiDocumentationTest {
     @Test
     void testEventItem() throws Exception {
 
-        ResultActions result = this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/event/{id}",  1)
-                        .accept(MediaType.APPLICATION_JSON)
-        );
+        EventDto eventDto = eventDto();
+        when(unitService.getEvent(1L))
+                .thenReturn(eventDto);
 
-        result.andExpect(status().isOk())
+        this.mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/event/{id}", 1)
+                                .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk())
                 .andDo(document("events-find",
                         getRequestPreprocessor(),
                         getResponsePreprocessor(),
@@ -51,5 +56,16 @@ class UnitControllerTests extends ApiDocumentationTest {
                         )
                 ));
 
+    }
+
+    private EventDto eventDto() {
+        EventDto eventDto = new EventDto();
+        eventDto.setId(234234L);
+        eventDto.setEventName("event name 입니다");
+        eventDto.setBrandName("brand name 입니다");
+        LocalDateTime now = LocalDateTime.now();
+        eventDto.setStartDt(now);
+        eventDto.setEndDt(now);
+        return eventDto;
     }
 }

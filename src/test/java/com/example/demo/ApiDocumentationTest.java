@@ -3,12 +3,16 @@ package com.example.demo;
 import com.example.demo.config.TestControllerConfig;
 import com.example.demo.controller.ErrorCodeController;
 import com.example.demo.controller.UnitController;
+import com.example.demo.service.UnitService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -30,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 })
 @AutoConfigureRestDocs
 @Import(TestControllerConfig.class)
-@ExtendWith({RestDocumentationExtension.class, SpringExtension.class}) // RestDocumentation 관련 설정 추가
+@ExtendWith({RestDocumentationExtension.class, SpringExtension.class, MockitoExtension.class}) // RestDocumentation 관련 설정 추가
 public abstract class ApiDocumentationTest {
 
     @Autowired
@@ -38,6 +42,9 @@ public abstract class ApiDocumentationTest {
 
     @Autowired
     protected ObjectMapper objectMapper;
+
+    @MockBean
+    protected UnitService unitService;
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext,
