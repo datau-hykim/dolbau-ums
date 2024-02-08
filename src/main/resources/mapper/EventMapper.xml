@@ -3,7 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.api.v1.event.mapper.EventMapper">
-    <select id="selectEventById" resultType="">
+    <select id="selectEventById" resultType="com.example.demo.api.v1.event.entity.Event">
 
     </select>
+    <select id="selectEventList" resultType="com.example.demo.api.v1.event.entity.Event">
+
+    </select>
+    <insert id="insertEventApply">
+
+    </insert>
 </mapper>

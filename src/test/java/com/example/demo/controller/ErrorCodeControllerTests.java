@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.ApiDocumentationTest;
-import com.example.demo.enums.ErrorCode;
+import com.example.demo.constant.ErrorCode;
 import com.example.demo.CustomResponseFieldsSnippet;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -37,7 +37,7 @@ public class ErrorCodeControllerTests extends ApiDocumentationTest {
                     fieldWithPath(errorCode.name()).type(JsonFieldType.OBJECT)
                             .attributes(
                                     key("code").value(errorCode.getCode()),
-                                    key("message").value(errorCode.getMessage()),
+                                    key("messages").value(errorCode.getMessages()),
                                     key("statusCode").value(String.valueOf(errorCode.getStatus().value())),
                                     key("status").value(errorCode.getStatus().getReasonPhrase()));
             fieldDescriptors.add(attributes);        }

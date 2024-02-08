@@ -1,8 +1,10 @@
 package com.example.demo.controller;
 
-import com.example.demo.enums.ErrorCode;
+import com.example.demo.constant.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import java.util.stream.Collectors;
 
 public class ErrorCodeMap extends ErrorCodeController.ErrorCodeResponse {
     public static String ErrorCodeMap() {
@@ -12,7 +14,7 @@ public class ErrorCodeMap extends ErrorCodeController.ErrorCodeResponse {
         for (ErrorCode errorCode : ErrorCode.values()) {
             ObjectNode errorCodeNode = objectMapper.createObjectNode();
             errorCodeNode.put("code", errorCode.getCode());
-            errorCodeNode.put("message", errorCode.getMessage());
+            errorCodeNode.put("message", String.join(",", errorCode.getMessages()));
             errorCodeNode.put("status", errorCode.getStatus().value());
 
             rootNode.set(errorCode.name(), errorCodeNode);

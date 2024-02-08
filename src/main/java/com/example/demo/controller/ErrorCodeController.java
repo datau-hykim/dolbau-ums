@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.enums.ErrorCode;
+import com.example.demo.constant.ErrorCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.http.MediaType;
@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -26,11 +27,11 @@ public class ErrorCodeController {
     @NoArgsConstructor
     protected static class ErrorCodeResponse {
         private String code;
-        private String message;
+        private List<String> messages;
         private int status;
         public ErrorCodeResponse(ErrorCode errorCode) {
             this.code = errorCode.getCode();
-            this.message = errorCode.getMessage();
+            this.messages = errorCode.getMessages();
             this.status = errorCode.getStatus().value();
         }
     }

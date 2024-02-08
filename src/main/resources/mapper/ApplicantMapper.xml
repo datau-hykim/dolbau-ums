@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.api.v1.applicant.mapper.ApplicantMapper">
+    <select id="selectApplicantById" resultType="com.example.demo.api.v1.applicant.entity.Applicant">
+
+    </select>
+    <select id="selectApplicantList" resultType="com.example.demo.api.v1.applicant.entity.Applicant">
+
+    </select>
+    <insert id="insertApplicantConfirm" >
+
+    </insert>
+    <insert id="insertApplicantWinningAddress">
+
+    </insert>
+</mapper>

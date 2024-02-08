@@ -1,33 +1,48 @@
 package com.example.demo.common;
 
-import com.example.demo.enums.ErrorCode;
+import com.example.demo.constant.ErrorCode;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class ApiResponse<T> {
     private String code;
-    private String message;
+    private List<String> messages;
     private T result;
 
+    /**
+     * 성공 시
+     */
     public ApiResponse(T result) {
         this.result = result;
         this.code = ErrorCode.SUCCESS.getCode();
-        this.message = ErrorCode.SUCCESS.getMessage();
+        this.messages = ErrorCode.SUCCESS.getMessages();
     }
 
+    /**
+     * 예외 발생 시
+     */
     public ApiResponse(ErrorCode errorCode) {
+        this.result = null;
         this.code = errorCode.getCode();
-        this.message = errorCode.getMessage();
+        this.messages = errorCode.getMessages();
     }
 
-    @Builder
-    public ApiResponse(T result, ErrorCode errorCode) {
-        this.result = result;
+    /**
+     * 예외 발생 시, 메시지 추가가 필요할 때.
+     */
+    public ApiResponse(ErrorCode errorCode, List<String> messages) {
+        this.result = null;
         this.code = errorCode.getCode();
-        this.message = errorCode.getMessage();
+        this.messages = Stream
+                .concat(errorCode.getMessages().stream(), messages.stream())
+                .collect(Collectors.toList());
     }
+
 }
