@@ -1,0 +1,20 @@
+spring:
+  datasource:
+    url: jdbc:mysql://121.161.22.225:3306/wichan
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: wichan
+    password: wichan
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+mybatis:
+  mapper-locations: "classpath:mapper/**.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    root: debug
