@@ -37,6 +37,7 @@ public class BoardController {
                 .boardId(boardId)
                 .title(body.getTitle())
                 .content(body.getContent())
+                .platformCd(body.getPlatformCd())
                 .build();
 
         boardService.modifyBoard(params);
