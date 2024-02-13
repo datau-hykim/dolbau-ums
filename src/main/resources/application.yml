@@ -6,11 +6,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: wichan
     password: wichan
+  web:
+    resources:
+      # ResourceHttpRequestHandler 매핑 여부
+      add-mappings: false
+  mvc:
+    # handler 미매핑 시 throw error 여부
+    throw-exception-if-no-handler-found: true
   devtools:
     livereload:
       enabled: true
     restart:
       enabled: true
+
 
 server:
   port: 8080

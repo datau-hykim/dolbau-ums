@@ -31,7 +31,10 @@ public class BoardDto {
     public static class ListRequest {
         @Min(value = 1, message = "limit은 1 이상이어야 합니다.")
         @Max(value = 10, message = "limit은 10 이하이어야 합니다.")
+        @NotNull(message = "limit은 필수 값입니다.")
         private Integer limit;
+        @Min(value = 0, message = "offset은 0 이상이어야 합니다.")
+        @NotNull(message = "offset은 필수 값입니다.")
         private Integer offset;
 
         @Builder
@@ -53,11 +56,13 @@ public class BoardDto {
     public static class RegisterRequest {
         @Size(min = 2, message = "제목은 2자 이상이어야 합니다.")
         @Size(max = 20, message = "제목은 20자 이하이어야 합니다.")
+        @NotBlank(message = "제목은 필수 값입니다.")
         private String title;
         @Size(min = 2, message = "내용은 2자 이상이어야 합니다.")
         @Size(max = 200, message = "내용은 200자 이하이어야 합니다.")
+        @NotBlank(message = "내용은 필수 값입니다.")
         private String content;
-        @NotEmpty(message = "이벤트 참여 플랫폼 값은 필수 값입니다.")
+        @NotBlank(message = "이벤트 참여 플랫폼 값은 필수 값입니다.")
         private String platformCd;
 
         @Builder
@@ -81,11 +86,13 @@ public class BoardDto {
         private Long boardId;
         @Size(min = 2, message = "제목은 2자 이상이어야 합니다.")
         @Size(max = 20, message = "제목은 20자 이하이어야 합니다.")
+        @NotBlank(message = "제목은 필수 값입니다.")
         private String title;
         @Size(min = 2, message = "내용은 2자 이상이어야 합니다.")
         @Size(max = 200, message = "내용은 200자 이하이어야 합니다.")
+        @NotBlank(message = "내용은 필수 값입니다.")
         private String content;
-        @NotEmpty(message = "이벤트 참여 플랫폼 값은 필수 값입니다.")
+        @NotBlank(message = "이벤트 참여 플랫폼 값은 필수 값입니다.")
         private String platformCd;
 
         @Builder
