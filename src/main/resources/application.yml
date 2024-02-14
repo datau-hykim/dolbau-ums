@@ -1,4 +1,7 @@
 spring:
+  elasticsearch:
+    uris: http://121.161.22.225:9200
+
   datasource:
     url: jdbc:mysql://121.161.22.225:3306/wichan
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,6 +18,3 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-logging:
-  level:
-    root: debug

@@ -1,51 +1,37 @@
 package com.example.demo.api.v1.event.controller;
 
-import com.example.demo.annotation.AuthParam;
-import com.example.demo.api.v1.event.dto.EventDto;
+import com.example.demo.api.v1.board.dto.BoardDto;
+import com.example.demo.api.v1.event.model.Event;
 import com.example.demo.api.v1.event.service.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
-
-@RestController
 @Slf4j
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/events")
 public class EventController {
-
     private final EventService eventService;
 
-    @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public List<EventDto.Response> eventList(){
-        return this.eventService.getEventList();
+    @PostMapping()
+    public void registerEvent(@RequestBody Event event) {
+        this.eventService.saveEvent(event);
+        Event result = this.eventService.getEventById(event.getId());
+        log.info("find :: {}", result);
     }
 
-    @GetMapping("/{eventId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public EventDto.Response eventDetail(@PathVariable int eventId){
-        return this.eventService.getEvent(EventDto.ApplyRequest.builder()
-                .eventId(eventId)
-                .build()
-        );
+    @GetMapping("/title/search")
+    public Page<Event> searchByTitle(@RequestBody Event event) {
+        return this.eventService.getEventByTitle(event.getTitle());
     }
 
-    @PutMapping("/{eventId}")
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public void applyEvent(@PathVariable int eventId, @AuthParam int memberId){
-        this.eventService.applyEvent(
-                EventDto.ApplyRequest.builder()
-                        .eventId(eventId)
-                        .memberId(memberId)
-                        .build()
-        );
+    @GetMapping("/search")
+    public Page<Event> searchByTitleAndContents(@RequestBody Map<String, String> params) {
+        return this.eventService.getEventByTitleAndContents(params.get("keyword"));
     }
-
 }
