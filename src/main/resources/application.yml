@@ -1,11 +1,15 @@
+# default
 spring:
   application:
     name: spring-boot-demo
   datasource:
-    url: jdbc:mysql://121.161.22.225:3306/wichan
+    # jdbc:mysql://121.161.22.225:3306/wichan
+    url: ${SPRING_DB_URL}
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: wichan
-    password: wichan
+    # wichan
+    username: ${SPRING_DB_USERNAME}
+    # wichan
+    password: ${SPRING_DB_PASSWORD}
   web:
     resources:
       # ResourceHttpRequestHandler 매핑 여부
@@ -18,23 +22,21 @@ spring:
       enabled: true
     restart:
       enabled: true
-
-
 server:
-  port: 8080
-
+  port: ${SPRING_SERVER_PORT}
 mybatis:
   mapper-locations: "classpath:mapper/**.xml"
   configuration:
     map-underscore-to-camel-case: true
-
 eureka:
+  instance:
+    prefer-ip-address: true
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: http://demouser:demopassword@localhost:8761/eureka
-
+      # http://demouser:demopassword@121.161.22.225:8761/eureka
+      defaultZone: ${EUREKA_SERVER_URL}
 logging:
   level:
     root: debug
