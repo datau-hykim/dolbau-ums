@@ -14,8 +14,8 @@
         SELECT board_id
              , title
              , content
-             , UNIX_TIMESTAMP(created_dtm) AS 'created_dtm'
-             , UNIX_TIMESTAMP(updated_dtm) AS 'updated_dtm'
+             , created_dtm
+             , updated_dtm
              , platform_cd
              , show_yn
         FROM board
@@ -28,8 +28,8 @@
         SELECT board_id
              , title
              , content
-             , UNIX_TIMESTAMP(created_dtm) AS 'created_dtm'
-             , UNIX_TIMESTAMP(updated_dtm) AS 'updated_dtm'
+             , created_dtm
+             , updated_dtm
              , platform_cd
              , show_yn
         FROM board

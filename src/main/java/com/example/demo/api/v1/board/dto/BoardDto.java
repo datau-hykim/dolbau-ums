@@ -8,7 +8,12 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+import java.sql.Timestamp;
+import java.time.ZoneId;
+
+@Slf4j
 public class BoardDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -129,8 +134,8 @@ public class BoardDto {
             this.boardId = board.getBoardId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdDtm = board.getCreatedDtm();
-            this.updatedDtm = board.getUpdatedDtm();
+            this.createdDtm = board.getCreatedDtm().atZone(ZoneId.systemDefault()).toEpochSecond();
+            this.updatedDtm = board.getUpdatedDtm().atZone(ZoneId.systemDefault()).toEpochSecond();
             this.platformStr = board.getPlatformCd().getValue();
             this.platformCd = board.getPlatformCd().getKey();
             this.showYn = board.getShowYn();
