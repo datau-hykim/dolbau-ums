@@ -1,15 +1,15 @@
 # default
+server:
+  port: 8080
+
 spring:
   application:
     name: spring-boot-demo
   datasource:
-    # jdbc:mysql://121.161.22.225:3306/wichan
-    url: ${SPRING_DB_URL}
+    url: jdbc:mysql://121.161.22.225:3306/wichan
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # wichan
-    username: ${SPRING_DB_USERNAME}
-    # wichan
-    password: ${SPRING_DB_PASSWORD}
+    username: wichan
+    password: wichan
   web:
     resources:
       # ResourceHttpRequestHandler 매핑 여부
@@ -22,12 +22,7 @@ spring:
       enabled: true
     restart:
       enabled: true
-server:
-  port: ${SPRING_SERVER_PORT}
-mybatis:
-  mapper-locations: "classpath:mapper/**.xml"
-  configuration:
-    map-underscore-to-camel-case: true
+
 eureka:
   instance:
     prefer-ip-address: true
@@ -35,8 +30,27 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      # http://demouser:demopassword@121.161.22.225:8761/eureka
-      defaultZone: ${EUREKA_SERVER_URL}
+      defaultZone: http://demouser:demopassword@121.161.22.225:5601/eureka
+
+mybatis:
+  mapper-locations: "classpath:mapper/**.xml"
+  configuration:
+    map-underscore-to-camel-case: true
+
 logging:
   level:
     root: debug
+
+---
+# 개발기 override 설정 추가
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+---
+# 운영기 override 설정 추가
+spring:
+  config:
+    activate:
+      on-profile: prod
