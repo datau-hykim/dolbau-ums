@@ -5,6 +5,8 @@ server:
 spring:
   application:
     name: spring-boot-demo
+  elasticsearch:
+    uris: http://121.161.22.225:9200
   datasource:
     url: jdbc:mysql://121.161.22.225:3306/wichan
     driver-class-name: com.mysql.cj.jdbc.Driver
