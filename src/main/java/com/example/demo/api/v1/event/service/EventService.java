@@ -1,34 +1,31 @@
 package com.example.demo.api.v1.event.service;
 
-import com.example.demo.api.v1.event.dto.EventDto;
-import com.example.demo.api.v1.event.entity.Event;
-import com.example.demo.api.v1.event.mapper.EventMapper;
+import com.example.demo.api.v1.event.model.Event;
+import com.example.demo.api.v1.event.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EventService {
-    private final EventMapper eventMapper;
+    private final EventRepository eventRepository;
 
-    public EventDto.Response getEvent(EventDto.ApplyRequest params) {
-        return new EventDto.Response(this.eventMapper.selectEventById(params.toEntity()));
+    public void saveEvent(Event event) {
+        this.eventRepository.save(event);
     }
 
-    public List<EventDto.Response> getEventList() {
-        List<Event> eventList = this.eventMapper.selectEventList();
-        return eventList.stream().map(EventDto.Response::new)
-                .collect(Collectors.toList());
+    public Event getEventById(Long id) {
+        return this.eventRepository.findById(id).orElse(null);
     }
 
-    public void applyEvent(EventDto.ApplyRequest params) {
-        this.eventMapper.insertEventApply(params.toEntity());
+    public Page<Event> getEventByTitle(String title) {
+        return this.eventRepository.findByTitle(title, Pageable.ofSize(20));
+    }
+
+    public Page<Event> getEventByTitleAndContents(String keyword) {
+        return this.eventRepository.findByTitleOrContentsLike(keyword, keyword, Pageable.ofSize(20));
     }
 
 }
