@@ -17,7 +17,11 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/{boardId}")
-    public BoardDto.Response getBoardDetail(@Valid BoardDto.Request params) {
+    public BoardDto.Response getBoardDetail(@PathVariable Long boardId) {
+        BoardDto.Request params = BoardDto.Request.builder()
+                .boardId(boardId)
+                .build();
+
         return boardService.getBoard(params);
     }
 
