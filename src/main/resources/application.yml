@@ -8,10 +8,10 @@ spring:
   elasticsearch:
     uris: http://121.161.22.225:9200
   datasource:
-    url: jdbc:mysql://121.161.22.225:3306/wichan
+    url: jdbc:mysql://121.161.22.225:3306/demo
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: wichan
-    password: wichan
+    username: demo
+    password: demo
   web:
     resources:
       # ResourceHttpRequestHandler 매핑 여부
@@ -25,6 +25,7 @@ spring:
     restart:
       enabled: true
 
+# spring cloud eureka-client
 eureka:
   instance:
     prefer-ip-address: true
@@ -34,10 +35,27 @@ eureka:
     service-url:
       defaultZone: http://demouser:demopassword@121.161.22.225:5601/eureka
 
+# mybatis
 mybatis:
   mapper-locations: "classpath:mapper/**.xml"
   configuration:
     map-underscore-to-camel-case: true
+
+# spring actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+  info:
+    os:
+      enabled: true
+    java:
+      enabled: true
+    env:
+      enabled: true
 
 logging:
   level:
@@ -49,6 +67,7 @@ spring:
   config:
     activate:
       on-profile: dev
+# ..todo
 
 ---
 # 운영기 override 설정 추가
@@ -56,3 +75,4 @@ spring:
   config:
     activate:
       on-profile: prod
+# ..todo
