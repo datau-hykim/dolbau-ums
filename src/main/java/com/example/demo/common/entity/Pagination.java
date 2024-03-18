@@ -6,7 +6,7 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class PaginationList {
+public class Pagination {
     private Integer limit;
     private Integer offset;
 }

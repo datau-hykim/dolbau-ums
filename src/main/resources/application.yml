@@ -41,25 +41,9 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
-# spring actuator
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - info
-          - health
-  info:
-    os:
-      enabled: true
-    java:
-      enabled: true
-    env:
-      enabled: true
-
 logging:
   level:
-    root: debug
+    root: info
 
 ---
 # 개발기 override 설정 추가

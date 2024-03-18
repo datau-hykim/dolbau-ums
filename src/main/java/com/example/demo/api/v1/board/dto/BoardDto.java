@@ -1,7 +1,7 @@
 package com.example.demo.api.v1.board.dto;
 
 import com.example.demo.api.v1.board.entity.Board;
-import com.example.demo.common.entity.PaginationList;
+import com.example.demo.common.entity.Pagination;
 import com.example.demo.constant.BoardPlatformCode;
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
@@ -10,7 +10,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import java.sql.Timestamp;
 import java.time.ZoneId;
 
 @Slf4j
@@ -48,8 +47,8 @@ public class BoardDto {
             this.offset = offset;
         }
 
-        public PaginationList toEntity() {
-            return PaginationList.builder()
+        public Pagination toEntity() {
+            return Pagination.builder()
                     .limit(this.limit)
                     .offset(this.offset)
                     .build();
