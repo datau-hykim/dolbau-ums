@@ -25,16 +25,6 @@ spring:
     restart:
       enabled: true
 
-# spring cloud eureka-client
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://demouser:demopassword@121.161.22.225:5601/eureka
-
 # mybatis
 mybatis:
   mapper-locations: "classpath:mapper/**.xml"
