@@ -52,6 +52,11 @@ logging:
     root: debug
   config: "classpath:logger/logback.xml"
 
+service:
+  post:
+    endpoint: "https://jsonplaceholder.typicode.com"
+  comment:
+    endpoint: "https://jsonplaceholder.typicode.com"
 ---
 # 개발기 override 설정 추가
 spring:
