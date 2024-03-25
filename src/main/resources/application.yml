@@ -50,6 +50,7 @@ management:
 logging:
   level:
     root: debug
+  config: "classpath:logger/logback.xml"
 
 ---
 # 개발기 override 설정 추가
