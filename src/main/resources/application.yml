@@ -24,6 +24,13 @@ spring:
       enabled: true
     restart:
       enabled: true
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 30000 # default 60,000ms
+            read-timeout: 10000 # default 10,000ms
 
 # mybatis
 mybatis:
@@ -52,11 +59,12 @@ logging:
     root: debug
   config: "classpath:logger/logback.xml"
 
-service:
-  post:
-    endpoint: "https://jsonplaceholder.typicode.com"
-  comment:
-    endpoint: "https://jsonplaceholder.typicode.com"
+external-servers:
+  comment-client:
+    endpoint: "https://jsonplaceholder.typicode.com/comments"
+  post-client:
+    endpoint: "https://jsonplaceholder.typicode.com/posts"
+
 ---
 # 개발기 override 설정 추가
 spring:

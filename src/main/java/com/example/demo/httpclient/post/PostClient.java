@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@FeignClient(name="postClient", url="${service.post.endpoint}")
+@FeignClient(name="post-client", url="${external-servers.post-client.endpoint}")
 public interface PostClient {
 
-    @GetMapping("/posts")
+    @GetMapping("/")
     public List<PostDto.Response> getPostList();
 
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public PostDto.Response getPostById(@PathVariable Long id);
 
-    @PostMapping("/posts")
+    @PostMapping("/")
     public PostDto.Response registerPost(PostDto.RegisterRequest params);
 
-    @PutMapping("/posts/{id}")
+    @PutMapping("/{id}")
     public PostDto.Response modifyPost(@PathVariable Long id, @RequestBody PostDto.ModifyRequest params);
 }

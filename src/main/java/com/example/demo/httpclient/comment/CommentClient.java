@@ -6,12 +6,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-@FeignClient(name="commentClient", url="${service.comment.endpoint}")
+@FeignClient(name="comment-client", url="${external-servers.comment-client.endpoint}")
 public interface CommentClient {
 
-    @GetMapping("/comments")
+    @GetMapping("")
     public List<CommentDto.Response> getCommentList();
 
-    @GetMapping("/comments/{postId}")
+    @GetMapping("{postId}")
     public CommentDto.Response getCommentsByPostId(@PathVariable Long postId);
 }
