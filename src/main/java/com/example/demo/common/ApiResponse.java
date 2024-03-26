@@ -1,6 +1,7 @@
 package com.example.demo.common;
 
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCode;
+import com.example.demo.constant.error.ErrorCodeImpl;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +22,8 @@ public class ApiResponse<T> {
      */
     public ApiResponse(T result) {
         this.result = result;
-        this.code = ErrorCode.SUCCESS.getCode();
-        this.messages = ErrorCode.SUCCESS.getMessages();
+        this.code = ErrorCodeImpl.SUCCESS.getCode();
+        this.messages = ErrorCodeImpl.SUCCESS.getMessages();
     }
 
     /**

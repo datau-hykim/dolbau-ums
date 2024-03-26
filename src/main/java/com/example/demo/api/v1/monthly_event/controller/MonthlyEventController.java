@@ -1,12 +1,13 @@
 package com.example.demo.api.v1.monthly_event.controller;
 
+import com.example.demo.common.auth.AuthParam;
 import com.example.demo.api.v1.monthly_event.dto.MonthlyEventDto;
 import com.example.demo.api.v1.monthly_event.service.MonthlyEventService;
+import com.example.demo.common.auth.Member;
 import com.example.demo.common.page.Pagination;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.example.demo.common.page.Page;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,9 +18,13 @@ public class MonthlyEventController {
     private final MonthlyEventService monthlyEventService;
 
     @GetMapping()
-    @ResponseStatus(HttpStatus.OK)
-    @ResponseBody
-    public Page<MonthlyEventDto.ResponsePage> monthlyEvents(Pagination pagination){
-        return this.monthlyEventService.getMonthlyEventList(1, pagination);
+    public Page<MonthlyEventDto.Response> monthlyEvents(@AuthParam Member member, Pagination pagination){
+        log.info("member is {}", member);
+        return this.monthlyEventService.getMonthlyEventList(member.getPlatformId(), pagination);
+    }
+
+    @GetMapping("/{eventId}")
+    public MonthlyEventDto.Response monthlyEventsById(@PathVariable long eventId){
+        return this.monthlyEventService.getMonthlyEventById(eventId);
     }
 }

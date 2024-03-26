@@ -11,9 +11,4 @@ import org.springframework.data.domain.Pageable;
 public class RequestPage<T> {
     private T param;
     private Pagination pagination;
-
-    public RequestPage<T> setTotalCnt(int cnt) {
-        this.pagination.setTotal(cnt);
-        return this;
-    }
 }

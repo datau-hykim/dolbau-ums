@@ -11,7 +11,7 @@ import java.time.ZoneId;
 public class MonthlyEventDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class ResponsePage {
+    public static class Response {
         private int eventId;
         private String applicantYn;
         private String eventNm;
@@ -22,8 +22,8 @@ public class MonthlyEventDto {
         private String detailImgUrl;
         private long eventApplyStartDtm;
         private long eventApplyEndDtm;
-        @Builder
-        public ResponsePage(MonthlyEvent monthlyEvent) {
+
+        public Response(MonthlyEvent monthlyEvent) {
             this.eventId = monthlyEvent.getEventId();
             this.eventNm = monthlyEvent.getEventNm();
             this.brandNm = monthlyEvent.getBrandNm();

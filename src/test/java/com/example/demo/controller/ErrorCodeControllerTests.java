@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.ApiDocumentationTest;
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCodeImpl;
 import com.example.demo.CustomResponseFieldsSnippet;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
@@ -32,7 +32,7 @@ public class ErrorCodeControllerTests extends ApiDocumentationTest {
 
     private List<FieldDescriptor> fieldDescriptors() {
         List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
-        for (ErrorCode errorCode : ErrorCode.values()) {
+        for (ErrorCodeImpl errorCode : ErrorCodeImpl.values()) {
             FieldDescriptor attributes =
                     fieldWithPath(errorCode.name()).type(JsonFieldType.OBJECT)
                             .attributes(

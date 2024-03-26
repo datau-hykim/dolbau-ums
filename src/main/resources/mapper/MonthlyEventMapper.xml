@@ -28,7 +28,7 @@
     </select>
 
     <select id="selectMonthlyEventCountByPlatformId"
-            parameterType="java.lang.Integer"
+            parameterType="java.lang.Long"
             resultType="java.lang.Integer" >
         SELECT
             COUNT(*)
@@ -39,6 +39,27 @@
             ON ev.event_id = evp.event_id
         WHERE
             evp.platform_id = #{platformId}
+          AND ev.delete_yn = 'N'
+    </select>
+
+    <select id="selectMonthlyEventById"
+            parameterType="java.lang.Long"
+            resultType="com.example.demo.api.v1.monthly_event.entity.MonthlyEvent"
+    >
+        SELECT
+            ev.event_id,
+            ev.brand_nm,
+            ev.event_nm,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.main_img_file_id) AS mainImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.detail_img_file_id) AS detailImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.thumb_img_file_id) AS thumbImgUrl,
+            ev.winning_quantity,
+            ev.event_apply_start_dtm,
+            ev.event_apply_end_dtm
+        FROM
+            event ev
+        WHERE
+            ev.event_id = #{eventId}
           AND ev.delete_yn = 'N'
     </select>
 </mapper>

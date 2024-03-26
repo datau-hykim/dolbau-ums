@@ -1,6 +1,6 @@
 package com.example.demo.api.v1.applicant.controller;
 
-import com.example.demo.annotation.AuthParam;
+import com.example.demo.common.auth.AuthParam;
 import com.example.demo.api.v1.applicant.dto.ApplicantDto;
 import com.example.demo.api.v1.applicant.service.ApplicantService;
 import lombok.RequiredArgsConstructor;

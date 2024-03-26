@@ -4,7 +4,7 @@ import com.example.demo.api.v1.board.dto.BoardDto;
 import com.example.demo.api.v1.board.entity.Board;
 import com.example.demo.api.v1.board.mapper.BoardMapper;
 import com.example.demo.common.exception.BizException;
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCodeImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ public class BoardService {
         Board board = boardMapper.selectBoardById(params.toEntity());
 
         if (board == null) {
-            throw new BizException(ErrorCode.NOT_FOUND);
+            throw new BizException(ErrorCodeImpl.NOT_FOUND);
         }
 
         return new BoardDto.Response(board);
@@ -38,7 +38,7 @@ public class BoardService {
         Integer result = boardMapper.insertBoard(params.toEntity());
 
         if (result < 1) {
-            throw new BizException(ErrorCode.FAILED_REGISTER);
+            throw new BizException(ErrorCodeImpl.FAILED_REGISTER);
         }
 
         return;
@@ -48,7 +48,7 @@ public class BoardService {
         Integer result = boardMapper.updateBoard(params.toEntity());
 
         if (result < 1) {
-            throw new BizException(ErrorCode.FAILED_MODIFY);
+            throw new BizException(ErrorCodeImpl.FAILED_MODIFY);
         }
 
         return;
