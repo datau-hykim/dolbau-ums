@@ -11,7 +11,7 @@ import java.time.ZoneId;
 public class MonthlyEventDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class ResponseList {
+    public static class ResponsePage {
         private int eventId;
         private String applicantYn;
         private String eventNm;
@@ -23,7 +23,7 @@ public class MonthlyEventDto {
         private long eventApplyStartDtm;
         private long eventApplyEndDtm;
         @Builder
-        public ResponseList(MonthlyEvent monthlyEvent) {
+        public ResponsePage(MonthlyEvent monthlyEvent) {
             this.eventId = monthlyEvent.getEventId();
             this.eventNm = monthlyEvent.getEventNm();
             this.brandNm = monthlyEvent.getBrandNm();

@@ -24,16 +24,13 @@ spring:
       enabled: true
     restart:
       enabled: true
-
-# spring cloud eureka-client
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    register-with-eureka: true
-    fetch-registry: true
-    service-url:
-      defaultZone: http://demouser:demopassword@121.161.22.225:5601/eureka
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connect-timeout: 30000 # default 60,000ms
+            read-timeout: 10000 # default 10,000ms
 
 # mybatis
 mybatis:
@@ -41,9 +38,32 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
 
+# spring actuator
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - info
+          - health
+  info:
+    os:
+      enabled: true
+    java:
+      enabled: true
+    env:
+      enabled: true
+
 logging:
   level:
     root: info
+  config: "classpath:logger/logback.xml"
+
+external-servers:
+  comment-client:
+    endpoint: "https://jsonplaceholder.typicode.com/comments"
+  post-client:
+    endpoint: "https://jsonplaceholder.typicode.com/posts"
 
 ---
 # 개발기 override 설정 추가
