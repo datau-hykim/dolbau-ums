@@ -11,7 +11,7 @@ import lombok.ToString;
 @Builder
 public class Member {
     private long memberId;
-    private long platformId;
+    private int platformId;
     private String platformNm;
     private String loginTypeCd;
     private String snsTypeCd;

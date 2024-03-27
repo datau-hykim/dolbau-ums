@@ -19,12 +19,17 @@ public class MonthlyEventController {
 
     @GetMapping()
     public Page<MonthlyEventDto.Response> monthlyEvents(@AuthParam Member member, Pagination pagination){
-        log.info("member is {}", member);
         return this.monthlyEventService.getMonthlyEventList(member.getPlatformId(), pagination);
     }
 
     @GetMapping("/{eventId}")
     public MonthlyEventDto.Response monthlyEventsById(@PathVariable long eventId){
         return this.monthlyEventService.getMonthlyEventById(eventId);
+    }
+
+    @PostMapping("/{eventId}")
+    public void applyEvent(@AuthParam Member member, @PathVariable int eventId){
+        MonthlyEventDto.RequestApply requestApply = new MonthlyEventDto.RequestApply(eventId, member);
+        monthlyEventService.applyMonthlyEvent(requestApply);
     }
 }

@@ -2,6 +2,7 @@ package com.example.demo.api.v1.monthly_event.service;
 
 import com.example.demo.api.v1.monthly_event.dto.MonthlyEventDto;
 import com.example.demo.api.v1.monthly_event.entity.MonthlyEvent;
+import com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant;
 import com.example.demo.api.v1.monthly_event.mapper.MonthlyEventMapper;
 import com.example.demo.common.exception.BizException;
 import com.example.demo.common.page.Pagination;
@@ -49,5 +50,20 @@ public class MonthlyEventService {
         }
 
         return new MonthlyEventDto.Response(item.get());
+    }
+
+    public void applyMonthlyEvent(MonthlyEventDto.RequestApply requestApply) {
+        MonthlyEventApplicant applicant = requestApply.toEntity();
+        int eventId = requestApply.getEventId();
+        // TODO 해당 이벤트 유효성 확인
+        this.getMonthlyEventById(eventId);
+
+        // TODO 회원 응모 여부 확인
+        Optional<MonthlyEventApplicant> applicantItem =  this.monthlyEventMapper.selectMonthlyEventApplicant(applicant);
+        if(applicantItem.isPresent()){
+            throw new BizException(ErrorCodeImpl.MONTHLY_EVENT.EXIST_APPLY_EVENT);
+        }
+
+        this.monthlyEventMapper.insertMonthlyEventApplicant(applicant);
     }
 }

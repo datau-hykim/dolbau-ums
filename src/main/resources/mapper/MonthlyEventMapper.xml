@@ -62,4 +62,33 @@
             ev.event_id = #{eventId}
           AND ev.delete_yn = 'N'
     </select>
+
+    <select id="selectMonthlyEventApplicant"
+            parameterType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant"
+            resultType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant"
+    >
+        SELECT
+            applicant_id,
+            event_id,
+            platform_id,
+            member_id,
+            register_dtm
+        FROM
+            event_applicant
+        WHERE
+            event_id = #{eventId}
+            AND member_id = #{memberId}
+    </select>
+
+    <insert id="insertMonthlyEventApplicant" parameterType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant">
+        INSERT INTO event_applicant(
+            event_id,
+            platform_id,
+            member_id
+        ) VALUES (
+             #{eventId},
+             #{platformId},
+             #{memberId}
+         )
+    </insert>
 </mapper>

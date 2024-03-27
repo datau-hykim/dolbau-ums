@@ -1,14 +1,41 @@
 package com.example.demo.api.v1.monthly_event.dto;
 
+import com.example.demo.api.v1.applicant.entity.Applicant;
 import com.example.demo.api.v1.monthly_event.entity.MonthlyEvent;
+import com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant;
+import com.example.demo.common.auth.Member;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class MonthlyEventDto {
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class RequestApply {
+        private int eventId;
+        private int platformId;
+        private long memberId;
+
+        public RequestApply(int eventId, Member member) {
+            this.eventId = eventId;
+            this.memberId = member.getMemberId();
+            this.platformId = member.getPlatformId();
+        }
+
+        public MonthlyEventApplicant toEntity() {
+            return MonthlyEventApplicant.builder()
+                    .eventId(this.eventId)
+                    .memberId(this.memberId)
+                    .platformId(this.platformId)
+                    .build();
+        }
+    }
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Response {
