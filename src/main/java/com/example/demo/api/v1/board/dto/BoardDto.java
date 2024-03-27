@@ -1,7 +1,6 @@
 package com.example.demo.api.v1.board.dto;
 
 import com.example.demo.api.v1.board.entity.Board;
-import com.example.demo.common.data.PaginationList;
 import com.example.demo.constant.BoardPlatformCode;
 import com.example.demo.common.util.DuDate;
 import jakarta.validation.constraints.*;
@@ -44,13 +43,6 @@ public class BoardDto {
         public ListRequest(Integer limit, Integer offset) {
             this.limit = limit;
             this.offset = offset;
-        }
-
-        public PaginationList toEntity() {
-            return PaginationList.builder()
-                    .limit(this.limit)
-                    .offset(this.offset)
-                    .build();
         }
     }
 

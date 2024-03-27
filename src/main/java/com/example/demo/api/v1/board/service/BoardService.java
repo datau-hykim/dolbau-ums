@@ -26,14 +26,6 @@ public class BoardService {
         return new BoardDto.Response(board);
     }
 
-    public List<BoardDto.Response> getBoardList(BoardDto.ListRequest params) {
-        List<Board> boardList = boardMapper.selectBoardList(params.toEntity());
-
-        return boardList.stream()
-                .map(BoardDto.Response::new)
-                .toList();
-    }
-
     public void registerBoard(BoardDto.RegisterRequest params) {
         Integer result = boardMapper.insertBoard(params.toEntity());
 
