@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.apache.ibatis.type.MappedTypes;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
@@ -17,11 +18,10 @@ public enum BoardPlatformCode implements CodeEnum {
     private final String key;
     private final String value;
 
-    public static BoardPlatformCode findCodeByKey(String key) {
+    public static Optional<BoardPlatformCode> findCodeByKey(String key) {
         return Arrays.stream(BoardPlatformCode.class.getEnumConstants())
                 .filter(type -> type.getKey().equals(key))
-                .findFirst()
-                .orElseThrow();
+                .findFirst();
     }
 
     @MappedTypes(BoardPlatformCode.class)

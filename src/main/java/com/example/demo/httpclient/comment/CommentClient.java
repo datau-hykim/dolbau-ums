@@ -12,6 +12,6 @@ public interface CommentClient {
     @GetMapping("")
     public List<CommentDto.Response> getCommentList();
 
-    @GetMapping("{postId}")
+    @GetMapping("/{postId}")
     public CommentDto.Response getCommentsByPostId(@PathVariable Long postId);
 }

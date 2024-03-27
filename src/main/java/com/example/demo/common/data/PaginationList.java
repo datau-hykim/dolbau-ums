@@ -1,4 +1,4 @@
-package com.example.demo.common.entity;
+package com.example.demo.common.data;
 
 import lombok.*;
 
