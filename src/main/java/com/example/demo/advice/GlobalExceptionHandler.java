@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(errorCode.getStatus())
-                .body(new ApiResponse<>(errorCode, List.of("파라미터 " + ex.getName() + "의 타입이 잘못되었습니다.")));
+                .body(new ApiResponse<>(errorCode, List.of(ex.getName() + " 파라미터의 타입이 잘못되었습니다.")));
     }
 
     // Request @Valid 실패한 경우
@@ -76,8 +76,8 @@ public class GlobalExceptionHandler {
                         new ApiResponse<>(
                                 errorCode,
                                 ex.getFieldErrors().stream()
-                                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
-                                    .collect(Collectors.toList())
+                                    .map(err -> err.getField() + " 파라미터는 " + err.getDefaultMessage())
+                                    .toList()
                         )
                 );
     }

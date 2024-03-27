@@ -17,11 +17,7 @@ public class BoardController {
     private final BoardService boardService;
 
     @GetMapping("/{boardId}")
-    public BoardDto.Response getBoardDetail(@PathVariable Long boardId) {
-        BoardDto.Request params = BoardDto.Request.builder()
-                .boardId(boardId)
-                .build();
-
+    public BoardDto.Response getBoardDetail(@Valid BoardDto.Request params) {
         return boardService.getBoard(params);
     }
 
@@ -36,14 +32,7 @@ public class BoardController {
     }
 
     @PutMapping("/{boardId}")
-    public void modifyBoard(@PathVariable Long boardId, @Valid @RequestBody BoardDto.ModifyRequest body) {
-        BoardDto.ModifyRequest params = BoardDto.ModifyRequest.builder()
-                .boardId(boardId)
-                .title(body.getTitle())
-                .content(body.getContent())
-                .platformCd(body.getPlatformCd())
-                .build();
-
-        boardService.modifyBoard(params);
+    public void modifyBoard(@PathVariable Long boardId, @Valid @RequestBody BoardDto.ModifyRequest params) {
+        boardService.modifyBoard(boardId, params);
     }
 }

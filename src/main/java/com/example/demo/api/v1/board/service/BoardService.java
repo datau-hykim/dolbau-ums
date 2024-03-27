@@ -42,7 +42,11 @@ public class BoardService {
         }
     }
 
-    public void modifyBoard(BoardDto.ModifyRequest params) {
+    public void modifyBoard(Long boardId, BoardDto.ModifyRequest params) {
+        if (!boardId.equals(params.getBoardId())) {
+            throw new BizException(ErrorCode.BAD_PARAMETER);
+        }
+
         Integer result = boardMapper.updateBoard(params.toEntity());
 
         if (result < 1) {
