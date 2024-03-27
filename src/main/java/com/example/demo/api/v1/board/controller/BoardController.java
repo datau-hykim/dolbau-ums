@@ -21,11 +21,6 @@ public class BoardController {
         return boardService.getBoard(params);
     }
 
-    @GetMapping("")
-    public List<BoardDto.Response> getBoardList(@Valid BoardDto.ListRequest params) {
-        return boardService.getBoardList(params);
-    }
-
     @PostMapping("")
     public void registerBoard(@Valid @RequestBody BoardDto.RegisterRequest params) {
         boardService.registerBoard(params);

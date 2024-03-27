@@ -2,7 +2,8 @@ package com.example.demo.advice;
 
 import com.example.demo.common.ApiResponse;
 import com.example.demo.common.exception.BizException;
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCode;
+import com.example.demo.constant.error.ErrorCodeImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     protected ResponseEntity<ApiResponse<?>> handleException(Exception ex) {
         log.error("", ex);
-        ErrorCode errorCode = ErrorCode.INTERNAL_SERVER_ERROR;
+        ErrorCodeImpl errorCode = ErrorCodeImpl.INTERNAL_SERVER_ERROR;
 
         return ResponseEntity
                 .status(errorCode.getStatus())
@@ -35,7 +36,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = NoHandlerFoundException.class)
     protected ResponseEntity<ApiResponse<?>> handleNoHandlerFoundException(NoHandlerFoundException ex) {
         log.error("", ex);
-        ErrorCode errorCode = ErrorCode.NOT_FOUND;
+        ErrorCodeImpl errorCode = ErrorCodeImpl.NOT_FOUND;
 
         return ResponseEntity
                 .status(errorCode.getStatus())
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
     protected ResponseEntity<ApiResponse<?>> handleNotReadableException(HttpMessageNotReadableException ex) {
         log.error("", ex);
-        ErrorCode errorCode = ErrorCode.BAD_PARAMETER;
+        ErrorCodeImpl errorCode = ErrorCodeImpl.BAD_PARAMETER;
 
         return ResponseEntity
                 .status(errorCode.getStatus())
@@ -57,7 +58,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<ApiResponse<?>> handleMismatchException(MethodArgumentTypeMismatchException ex) {
         log.error("", ex);
-        ErrorCode errorCode = ErrorCode.BAD_PARAMETER;
+        ErrorCodeImpl errorCode = ErrorCodeImpl.BAD_PARAMETER;
 
         return ResponseEntity
                 .status(errorCode.getStatus())
@@ -68,7 +69,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = BindException.class)
     protected ResponseEntity<ApiResponse<?>> handleBindException(BindException ex) {
         log.error("", ex);
-        ErrorCode errorCode = ErrorCode.BAD_PARAMETER;
+        ErrorCodeImpl errorCode = ErrorCodeImpl.BAD_PARAMETER;
 
         return ResponseEntity
                 .status(errorCode.getStatus())

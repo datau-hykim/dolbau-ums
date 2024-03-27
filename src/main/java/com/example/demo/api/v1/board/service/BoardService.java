@@ -4,7 +4,7 @@ import com.example.demo.api.v1.board.dto.BoardDto;
 import com.example.demo.api.v1.board.entity.Board;
 import com.example.demo.api.v1.board.mapper.BoardMapper;
 import com.example.demo.common.exception.BizException;
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCodeImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,37 +20,29 @@ public class BoardService {
         Board board = boardMapper.selectBoardById(params.toEntity());
 
         if (board == null) {
-            throw new BizException(ErrorCode.NOT_FOUND);
+            throw new BizException(ErrorCodeImpl.NOT_FOUND);
         }
 
         return new BoardDto.Response(board);
-    }
-
-    public List<BoardDto.Response> getBoardList(BoardDto.ListRequest params) {
-        List<Board> boardList = boardMapper.selectBoardList(params.toEntity());
-
-        return boardList.stream()
-                .map(BoardDto.Response::new)
-                .toList();
     }
 
     public void registerBoard(BoardDto.RegisterRequest params) {
         Integer result = boardMapper.insertBoard(params.toEntity());
 
         if (result < 1) {
-            throw new BizException(ErrorCode.FAILED_REGISTER);
+            throw new BizException(ErrorCodeImpl.FAILED_REGISTER);
         }
     }
 
     public void modifyBoard(Long boardId, BoardDto.ModifyRequest params) {
         if (!boardId.equals(params.getBoardId())) {
-            throw new BizException(ErrorCode.BAD_PARAMETER);
+            throw new BizException(ErrorCodeImpl.BAD_PARAMETER);
         }
 
         Integer result = boardMapper.updateBoard(params.toEntity());
 
         if (result < 1) {
-            throw new BizException(ErrorCode.FAILED_MODIFY);
+            throw new BizException(ErrorCodeImpl.FAILED_MODIFY);
         }
     }
 }

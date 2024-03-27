@@ -1,6 +1,6 @@
 package com.example.demo.common.exception;
 
-import com.example.demo.constant.ErrorCode;
+import com.example.demo.constant.error.ErrorCode;
 import lombok.Getter;
 import lombok.Setter;
 

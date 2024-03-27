@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.api.v1.monthly_event.mapper.MonthlyEventMapper">
+    <select id="selectMonthlyEventByPlatformId"
+            parameterType="com.example.demo.common.page.RequestPage"
+            resultType="com.example.demo.api.v1.monthly_event.entity.MonthlyEvent" >
+        SELECT
+            ev.event_id,
+            ev.brand_nm,
+            ev.event_nm,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.main_img_file_id) AS mainImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.detail_img_file_id) AS detailImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.thumb_img_file_id) AS thumbImgUrl,
+            ev.winning_quantity,
+            ev.event_apply_start_dtm,
+            ev.event_apply_end_dtm
+        FROM
+            event ev
+                LEFT JOIN
+            event_platform evp
+            ON ev.event_id = evp.event_id
+        WHERE
+            evp.platform_id = #{param}
+          AND ev.delete_yn = 'N'
+            LIMIT ${pagination.offset} , ${pagination.perPage}
+    </select>
+
+    <select id="selectMonthlyEventCountByPlatformId"
+            parameterType="java.lang.Long"
+            resultType="java.lang.Integer" >
+        SELECT
+            COUNT(*)
+        FROM
+            event ev
+                LEFT JOIN
+            event_platform evp
+            ON ev.event_id = evp.event_id
+        WHERE
+            evp.platform_id = #{platformId}
+          AND ev.delete_yn = 'N'
+    </select>
+
+    <select id="selectMonthlyEventById"
+            parameterType="java.lang.Long"
+            resultType="com.example.demo.api.v1.monthly_event.entity.MonthlyEvent"
+    >
+        SELECT
+            ev.event_id,
+            ev.brand_nm,
+            ev.event_nm,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.main_img_file_id) AS mainImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.detail_img_file_id) AS detailImgUrl,
+            (SELECT CONCAT(f.file_path, '/', f.file_nm) FROM file f where f.file_id = ev.thumb_img_file_id) AS thumbImgUrl,
+            ev.winning_quantity,
+            ev.event_apply_start_dtm,
+            ev.event_apply_end_dtm
+        FROM
+            event ev
+        WHERE
+            ev.event_id = #{eventId}
+          AND ev.delete_yn = 'N'
+    </select>
+
+    <select id="selectMonthlyEventApplicant"
+            parameterType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant"
+            resultType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant"
+    >
+        SELECT
+            applicant_id,
+            event_id,
+            platform_id,
+            member_id,
+            register_dtm
+        FROM
+            event_applicant
+        WHERE
+            event_id = #{eventId}
+            AND member_id = #{memberId}
+    </select>
+
+    <insert id="insertMonthlyEventApplicant" parameterType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant">
+        INSERT INTO event_applicant(
+            event_id,
+            platform_id,
+            member_id
+        ) VALUES (
+             #{eventId},
+             #{platformId},
+             #{memberId}
+         )
+    </insert>
+</mapper>

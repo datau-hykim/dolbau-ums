@@ -56,7 +56,7 @@ management:
 
 logging:
   level:
-    root: debug
+    root: info
   config: "classpath:logger/logback.xml"
 
 external-servers:
