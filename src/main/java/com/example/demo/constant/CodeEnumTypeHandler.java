@@ -29,7 +29,7 @@ public abstract class CodeEnumTypeHandler<E extends CodeEnum> implements TypeHan
                 .stream()
                 .filter(type -> type.getKey().equals(key))
                 .findAny()
-                .orElseThrow();
+                .orElse(null);
     }
 
     @Override
@@ -40,7 +40,7 @@ public abstract class CodeEnumTypeHandler<E extends CodeEnum> implements TypeHan
                 .stream()
                 .filter(type -> type.getKey().equals(key))
                 .findAny()
-                .orElseThrow();
+                .orElse(null);
     }
 
     @Override
@@ -51,6 +51,6 @@ public abstract class CodeEnumTypeHandler<E extends CodeEnum> implements TypeHan
                 .stream()
                 .filter(type -> type.getKey().equals(key))
                 .findAny()
-                .orElseThrow();
+                .orElse(null);
     }
 }

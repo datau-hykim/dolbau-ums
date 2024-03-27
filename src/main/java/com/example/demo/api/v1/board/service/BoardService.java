@@ -31,7 +31,7 @@ public class BoardService {
 
         return boardList.stream()
                 .map(BoardDto.Response::new)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     public void registerBoard(BoardDto.RegisterRequest params) {
@@ -40,8 +40,6 @@ public class BoardService {
         if (result < 1) {
             throw new BizException(ErrorCode.FAILED_REGISTER);
         }
-
-        return;
     }
 
     public void modifyBoard(BoardDto.ModifyRequest params) {
@@ -50,7 +48,5 @@ public class BoardService {
         if (result < 1) {
             throw new BizException(ErrorCode.FAILED_MODIFY);
         }
-
-        return;
     }
 }

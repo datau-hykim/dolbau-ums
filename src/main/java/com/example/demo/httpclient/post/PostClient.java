@@ -8,13 +8,13 @@ import java.util.List;
 @FeignClient(name="post-client", url="${external-servers.post-client.endpoint}")
 public interface PostClient {
 
-    @GetMapping("/")
+    @GetMapping("")
     public List<PostDto.Response> getPostList();
 
     @GetMapping("/{id}")
     public PostDto.Response getPostById(@PathVariable Long id);
 
-    @PostMapping("/")
+    @PostMapping("")
     public PostDto.Response registerPost(PostDto.RegisterRequest params);
 
     @PutMapping("/{id}")

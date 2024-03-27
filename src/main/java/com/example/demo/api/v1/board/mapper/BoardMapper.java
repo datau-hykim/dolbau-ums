@@ -1,7 +1,7 @@
 package com.example.demo.api.v1.board.mapper;
 
 import com.example.demo.api.v1.board.entity.Board;
-import com.example.demo.common.entity.PaginationList;
+import com.example.demo.common.data.PaginationList;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -22,7 +22,7 @@
         WHERE board_id = #{boardId} AND show_yn = 'Y'
     </select>
     <select id="selectBoardList"
-            parameterType="com.example.demo.common.entity.PaginationList"
+            parameterType="com.example.demo.common.data.PaginationList"
             resultType="com.example.demo.api.v1.board.entity.Board"
             resultMap="boardResultMap">
         SELECT board_id

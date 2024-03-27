@@ -1,17 +1,15 @@
 package com.example.demo.api.v1.board.dto;
 
 import com.example.demo.api.v1.board.entity.Board;
-import com.example.demo.common.entity.PaginationList;
+import com.example.demo.common.data.PaginationList;
 import com.example.demo.constant.BoardPlatformCode;
+import com.example.demo.common.util.DuDate;
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.sql.Timestamp;
-import java.time.ZoneId;
 
 @Slf4j
 public class BoardDto {
@@ -80,7 +78,7 @@ public class BoardDto {
             return Board.builder()
                     .title(this.title)
                     .content(this.content)
-                    .platformCd(BoardPlatformCode.findCodeByKey(this.platformCd))
+                    .platformCd(BoardPlatformCode.findCodeByKey(this.platformCd).orElse(null))
                     .build();
         }
     }
@@ -112,7 +110,7 @@ public class BoardDto {
                     .boardId(this.boardId)
                     .title(this.title)
                     .content(this.content)
-                    .platformCd(BoardPlatformCode.findCodeByKey(this.platformCd))
+                    .platformCd(BoardPlatformCode.findCodeByKey(this.platformCd).orElse(null))
                     .build();
         }
     }
@@ -125,8 +123,8 @@ public class BoardDto {
         private String content;
         private Long createdDtm;
         private Long updatedDtm;
-        private String platformStr;
         private String platformCd;
+        private String platformStr;
         private String showYn;
 
         @Builder
@@ -134,10 +132,12 @@ public class BoardDto {
             this.boardId = board.getBoardId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdDtm = board.getCreatedDtm().atZone(ZoneId.systemDefault()).toEpochSecond();
-            this.updatedDtm = board.getUpdatedDtm().atZone(ZoneId.systemDefault()).toEpochSecond();
-            this.platformStr = board.getPlatformCd().getValue();
-            this.platformCd = board.getPlatformCd().getKey();
+            this.createdDtm = DuDate.toUnix(board.getCreatedDtm());
+            this.updatedDtm = DuDate.toUnix(board.getUpdatedDtm());
+            if (board.getPlatformCd() != null) {
+                this.platformCd = board.getPlatformCd().getKey();
+                this.platformStr = board.getPlatformCd().getValue();
+            }
             this.showYn = board.getShowYn();
         }
     }
