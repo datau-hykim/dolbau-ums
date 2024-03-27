@@ -13,4 +13,28 @@ public class DevDto {
         private PostDto.Response post;
         private CommentDto.Response comment;
     }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
+    public static class EncryptResponse {
+        private String cipherText;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
+    public static class DecryptResponse {
+        private String plainText;
+    }
+
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
+    public static class HashResponse {
+        private String hashText;
+    }
 }

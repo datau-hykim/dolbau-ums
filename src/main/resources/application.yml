@@ -65,6 +65,10 @@ external-servers:
   post-client:
     endpoint: "https://jsonplaceholder.typicode.com/posts"
 
+crypto:
+  secret: "datauniverse2024" # 128 bits
+  iv: "datauniverse2024" # 128 bits
+
 ---
 # 개발기 override 설정 추가
 spring:
