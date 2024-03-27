@@ -17,9 +17,9 @@
             ev.event_apply_start_dtm,
             ev.event_apply_end_dtm
         FROM
-            event ev
+            monthly_event ev
                 LEFT JOIN
-            event_platform evp
+            monthly_event_platform evp
             ON ev.event_id = evp.event_id
         WHERE
             evp.platform_id = #{param}
@@ -33,9 +33,9 @@
         SELECT
             COUNT(*)
         FROM
-            event ev
+            monthly_event ev
                 LEFT JOIN
-            event_platform evp
+            monthly_event_platform evp
             ON ev.event_id = evp.event_id
         WHERE
             evp.platform_id = #{platformId}
@@ -57,7 +57,7 @@
             ev.event_apply_start_dtm,
             ev.event_apply_end_dtm
         FROM
-            event ev
+            monthly_event ev
         WHERE
             ev.event_id = #{eventId}
           AND ev.delete_yn = 'N'
@@ -74,14 +74,14 @@
             member_id,
             register_dtm
         FROM
-            event_applicant
+            monthly_event_applicant
         WHERE
             event_id = #{eventId}
             AND member_id = #{memberId}
     </select>
 
     <insert id="insertMonthlyEventApplicant" parameterType="com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant">
-        INSERT INTO event_applicant(
+        INSERT INTO monthly_event_applicant(
             event_id,
             platform_id,
             member_id
