@@ -18,9 +18,9 @@
             ev.event_apply_end_dtm
         FROM
             monthly_event ev
-                LEFT JOIN
+        LEFT JOIN
             monthly_event_platform evp
-            ON ev.event_id = evp.event_id
+        ON ev.event_id = evp.event_id
         WHERE
             evp.platform_id = #{param}
           AND ev.delete_yn = 'N'
@@ -34,9 +34,9 @@
             COUNT(*)
         FROM
             monthly_event ev
-                LEFT JOIN
+        LEFT JOIN
             monthly_event_platform evp
-            ON ev.event_id = evp.event_id
+        ON ev.event_id = evp.event_id
         WHERE
             evp.platform_id = #{platformId}
           AND ev.delete_yn = 'N'
@@ -89,6 +89,6 @@
              #{eventId},
              #{platformId},
              #{memberId}
-         )
+        )
     </insert>
 </mapper>

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 public class MonthlyEventService {
     private final MonthlyEventMapper monthlyEventMapper;
 
-    public Page<MonthlyEventDto.Response> getMonthlyEventList(long platformId, Pagination pagination) {
+    public Page<MonthlyEventDto.ResponseList> getMonthlyEventList(long platformId, Pagination pagination) {
         int eventCnt = this.monthlyEventMapper.selectMonthlyEventCountByPlatformId(platformId);
         pagination.setTotal(eventCnt);
 
@@ -34,22 +34,22 @@ public class MonthlyEventService {
                         .build()
         );
 
-        List<MonthlyEventDto.Response> list = eventList.stream().map(MonthlyEventDto.Response::new)
+        List<MonthlyEventDto.ResponseList> list = eventList.stream().map(MonthlyEventDto.ResponseList::new)
                 .collect(Collectors.toList());
 
-        return Page.<MonthlyEventDto.Response>builder()
+        return Page.<MonthlyEventDto.ResponseList>builder()
                 .list(list)
                 .pagination(pagination)
                 .build();
     }
 
-    public MonthlyEventDto.Response getMonthlyEventById(long eventId) throws BizException {
+    public MonthlyEventDto.ResponseList getMonthlyEventById(long eventId) throws BizException {
         Optional<MonthlyEvent> item = this.monthlyEventMapper.selectMonthlyEventById(eventId);
         if(item.isEmpty()) {
             throw new BizException(ErrorCodeImpl.MONTHLY_EVENT.NOT_FOUND_EVENT);
         }
 
-        return new MonthlyEventDto.Response(item.get());
+        return new MonthlyEventDto.ResponseList(item.get());
     }
 
     public void applyMonthlyEvent(MonthlyEventDto.RequestApply requestApply) {

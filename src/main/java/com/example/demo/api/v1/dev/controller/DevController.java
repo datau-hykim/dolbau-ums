@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
+import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -36,7 +37,7 @@ public class DevController {
      * 암/복호화 테스트
      */
     @GetMapping("/encrypt")
-    public DevDto.EncryptResponse getCipherText(@Valid @RequestParam String text) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public DevDto.EncryptResponse getCipherText(@Valid @RequestParam String text) throws GeneralSecurityException {
         String cipherText = crypto.encrypt(text);
 
         return DevDto.EncryptResponse.builder()
@@ -45,7 +46,7 @@ public class DevController {
     }
 
     @GetMapping("/decrypt")
-    public DevDto.DecryptResponse getPlainText(@Valid @RequestParam String text) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+    public DevDto.DecryptResponse getPlainText(@Valid @RequestParam String text) throws GeneralSecurityException {
         String plainText = crypto.decrypt(text);
 
         return DevDto.DecryptResponse.builder()
@@ -54,7 +55,7 @@ public class DevController {
     }
 
     @GetMapping("/hash")
-    public DevDto.HashResponse getHashText(@Valid @RequestParam String text) throws NoSuchAlgorithmException {
+    public DevDto.HashResponse getHashText(@Valid @RequestParam String text) throws GeneralSecurityException {
         String hashText = crypto.hash(text, "testSalt");
 
         return DevDto.HashResponse.builder()

@@ -18,12 +18,12 @@ public class MonthlyEventController {
     private final MonthlyEventService monthlyEventService;
 
     @GetMapping()
-    public Page<MonthlyEventDto.Response> monthlyEvents(@AuthParam Member member, Pagination pagination){
+    public Page<MonthlyEventDto.ResponseList> monthlyEvents(@AuthParam Member member, Pagination pagination){
         return this.monthlyEventService.getMonthlyEventList(member.getPlatformId(), pagination);
     }
 
     @GetMapping("/{eventId}")
-    public MonthlyEventDto.Response monthlyEventsById(@PathVariable long eventId){
+    public MonthlyEventDto.ResponseList monthlyEventsById(@PathVariable long eventId){
         return this.monthlyEventService.getMonthlyEventById(eventId);
     }
 

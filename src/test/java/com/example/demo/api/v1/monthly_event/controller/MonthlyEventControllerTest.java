@@ -35,7 +35,7 @@ public class MonthlyEventControllerTest {
     void getMonthlyEventById() throws Exception {
         // given
         given(this.monthlyEventService.getMonthlyEventById(1))
-                .willReturn(new MonthlyEventDto.Response(
+                .willReturn(new MonthlyEventDto.ResponseList(
                         MonthlyEvent.builder()
                                 .eventId(1)
                                 .eventNm("보조배터리 겸용 랜턴1")
