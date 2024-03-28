@@ -1,15 +1,12 @@
 package com.example.demo.api.v1.monthly_event.dto;
 
-import com.example.demo.api.v1.applicant.entity.Applicant;
 import com.example.demo.api.v1.monthly_event.entity.MonthlyEvent;
 import com.example.demo.api.v1.monthly_event.entity.MonthlyEventApplicant;
 import com.example.demo.common.auth.Member;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 
 public class MonthlyEventDto {
@@ -38,7 +35,7 @@ public class MonthlyEventDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class Response {
+    public static class ResponseList {
         private int eventId;
         private String applicantYn;
         private String eventNm;
@@ -50,7 +47,7 @@ public class MonthlyEventDto {
         private long eventApplyStartDtm;
         private long eventApplyEndDtm;
 
-        public Response(MonthlyEvent monthlyEvent) {
+        public ResponseList(MonthlyEvent monthlyEvent) {
             this.eventId = monthlyEvent.getEventId();
             this.eventNm = monthlyEvent.getEventNm();
             this.brandNm = monthlyEvent.getBrandNm();

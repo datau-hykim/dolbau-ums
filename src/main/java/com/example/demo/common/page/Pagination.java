@@ -5,7 +5,7 @@ import lombok.*;
 @Getter
 @ToString
 public class Pagination {
-    private int page = 0;
+    private int page = 1;
     private int perPage = 20;
     private int totalPage = 0;
     private int offset = 0;

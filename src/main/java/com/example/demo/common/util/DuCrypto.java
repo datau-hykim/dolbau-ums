@@ -12,10 +12,7 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.*;
 import java.util.Base64;
 
 @Slf4j
@@ -33,7 +30,7 @@ public class DuCrypto {
     @Value("${crypto.iv}")
     private String iv;
 
-    public String encrypt(String plainText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public String encrypt(String plainText) throws GeneralSecurityException {
         SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(), CRYPT_ALGO);
         IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
 
@@ -45,7 +42,7 @@ public class DuCrypto {
         return encodeBase64(cipherText);
     }
 
-    public String decrypt(String cipherText) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException, IllegalBlockSizeException, BadPaddingException {
+    public String decrypt(String cipherText) throws GeneralSecurityException {
         SecretKeySpec secretKeySpec = new SecretKeySpec(secret.getBytes(), CRYPT_ALGO);
         IvParameterSpec ivSpec = new IvParameterSpec(iv.getBytes());
 
@@ -64,11 +61,11 @@ public class DuCrypto {
     private static final String HASH_ALGO = "SHA-256";
     private static final Integer HASH_ROUND = 3;
 
-    public String hash(String plainText, String salt) throws NoSuchAlgorithmException {
+    public String hash(String plainText, String salt) throws GeneralSecurityException {
         return hash(plainText + salt, HASH_ROUND);
     }
 
-    private String hash(String hashText, Integer rounds) throws NoSuchAlgorithmException {
+    private String hash(String hashText, Integer rounds) throws GeneralSecurityException {
         if (rounds == 0) return hashText;
 
         MessageDigest md = MessageDigest.getInstance(HASH_ALGO);

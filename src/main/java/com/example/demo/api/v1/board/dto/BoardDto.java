@@ -2,7 +2,7 @@ package com.example.demo.api.v1.board.dto;
 
 import com.example.demo.api.v1.board.entity.Board;
 import com.example.demo.constant.BoardPlatformCode;
-import com.example.demo.common.util.DuDate;
+import com.example.demo.common.util.DateUtil;
 import jakarta.validation.constraints.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,8 +10,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.Date;
+
 @Slf4j
 public class BoardDto {
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class Request {
@@ -124,8 +127,8 @@ public class BoardDto {
             this.boardId = board.getBoardId();
             this.title = board.getTitle();
             this.content = board.getContent();
-            this.createdDtm = DuDate.toUnix(board.getCreatedDtm());
-            this.updatedDtm = DuDate.toUnix(board.getUpdatedDtm());
+            this.createdDtm = DateUtil.toUnix(board.getCreatedDtm());
+            this.updatedDtm = DateUtil.toUnix(board.getUpdatedDtm());
             if (board.getPlatformCd() != null) {
                 this.platformCd = board.getPlatformCd().getKey();
                 this.platformStr = board.getPlatformCd().getValue();
