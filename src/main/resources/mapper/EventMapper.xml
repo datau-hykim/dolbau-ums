@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.api.v1.event.mapper.EventMapper">
+    <select id="selectEventByEventId"
+            parameterType="java.lang.Long"
+            resultType="com.example.demo.api.v1.event.entity.Event">
+        select
+            event_id
+             , event_nm
+             , event_apply_url
+             , event_content
+             , event_hint
+             , event_host
+             , event_apply_type_id
+             , event_announcement_type
+             , event_announcement_dt
+             , event_apply_platform_id
+             , event_start_dt
+             , event_end_dt
+             , delete_yn
+             , block_yn
+             , event_image_file_id
+             , (select count(*) from event_view_history where event_id = #{eventId}) as `event_views`
+             , (select count(*) from event_apply_history where event_id = #{eventId}) as `event_applicants`
+             , (select count(*) from event_interest_history where event_id = #{eventId}) as `event_interests`
+             , register_member_id
+             , register_dtm
+             , update_member_id
+             , update_dtm
+        from event
+        where event_id = #{eventId}
+    </select>
+    <select id="selectEventKeywordsByEventId"
+            parameterType="java.lang.Long"
+            resultType="com.example.demo.api.v1.event.entity.EventKeyword">
+        select
+            ek.event_id
+             , k.keyword_id
+             , k.keyword_nm
+             , kc.keyword_category_id
+             , kc.keyword_category_nm
+        from event_keyword `ek`
+                 left join keyword `k` on ek.keyword_id = k.keyword_id
+                 left join keyword_category `kc` on k.keyword_category_id = kc.keyword_category_id
+        where
+            event_id = #{eventId}
+    </select>
+</mapper>

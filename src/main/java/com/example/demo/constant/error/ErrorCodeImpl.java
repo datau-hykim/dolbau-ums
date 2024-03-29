@@ -40,6 +40,23 @@ public enum ErrorCodeImpl implements ErrorCode {
     }
 
     @Getter
+    public enum EVENT implements ErrorCode {
+        NOT_FOUND_EVENT("101", HttpStatus.BAD_REQUEST, List.of("유효하지 않은 이벤트입니다.")),
+        EXIST_APPLY_EVENT("102", HttpStatus.BAD_REQUEST, List.of("이미 응모한 이벤트입니다."));
+
+        private static final String UPPER_CODE = "200";
+        private final String code;
+        private final HttpStatus status;
+        private final List<String> messages;
+
+        EVENT(String code, HttpStatus status, List<String> messages) {
+            this.code = UPPER_CODE + code;
+            this.status = status;
+            this.messages = messages;
+        }
+    }
+
+    @Getter
     public enum MONTHLY_EVENT implements ErrorCode {
         NOT_FOUND_EVENT("101", HttpStatus.BAD_REQUEST, List.of("유효하지 않은 이벤트입니다.")),
         EXIST_APPLY_EVENT("102", HttpStatus.BAD_REQUEST, List.of("이미 응모한 이벤트입니다."));

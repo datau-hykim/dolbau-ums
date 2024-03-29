@@ -23,7 +23,7 @@ import static org.mockito.BDDMockito.given;
 
 @AutoConfigureRestDocs
 @WebMvcTest(MonthlyEventController.class)
-public class MonthlyEventControllerTest {
+class MonthlyEventControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
@@ -39,7 +39,7 @@ public class MonthlyEventControllerTest {
                         MonthlyEvent.builder()
                                 .eventId(1)
                                 .eventNm("보조배터리 겸용 랜턴1")
-                                .brandNm("쿠비녹스")
+                                .brandNm("쿠비눅스")
                                 .winningQuantity(500)
                                 .thumbImgUrl("/app/event/20231212165235_eventItem_3.jpg")
                                 .mainImgUrl("/app/event/20231212165235_eventItem_1.jpg")
