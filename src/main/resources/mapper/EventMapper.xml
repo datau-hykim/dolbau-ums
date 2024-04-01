@@ -3,14 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.demo.api.v1.event.mapper.EventMapper">
-    <resultMap id="eventResultMap" type="com.example.demo.api.v1.event.entity.Event">
-        <result column="event_announcement_type" property="eventAnnouncementType" jdbcType="VARCHAR"
-                typeHandler="com.example.demo.constant.EventAnnouncementType$TypeHandler" />
-    </resultMap>
     <select id="selectEventByEventId"
             parameterType="java.lang.Long"
-            resultType="com.example.demo.api.v1.event.entity.Event"
-            resultMap="eventResultMap">
+            resultType="com.example.demo.api.v1.event.entity.Event">
         select
             event_id
              , event_nm
@@ -19,7 +14,7 @@
              , event_hint
              , event_host
              , event_apply_type_id
-             , event_announcement_type
+             , event_announcement_type_id
              , event_announcement_dt
              , event_apply_platform_id
              , event_start_dt
@@ -66,7 +61,7 @@
             , event_host
             , event_apply_type_id
             , event_apply_platform_id
-            , event_announcement_type
+            , event_announcement_type_id
             , event_announcement_dt
             , event_start_dt
             , event_end_dt
@@ -82,7 +77,7 @@
             , #{eventHost}
             , #{eventApplyTypeId}
             , #{eventApplyPlatformId}
-            , #{eventAnnouncementType, javaType=com.example.demo.constant.EventAnnouncementType, typeHandler=com.example.demo.constant.EventAnnouncementType$TypeHandler}
+            , #{eventAnnouncementTypeId}
             , #{eventAnnouncementDt}
             , #{eventStartDt}
             , #{eventEndDt}

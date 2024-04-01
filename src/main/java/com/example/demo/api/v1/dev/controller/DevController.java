@@ -2,19 +2,13 @@ package com.example.demo.api.v1.dev.controller;
 
 import com.example.demo.api.v1.dev.dto.DevDto;
 import com.example.demo.api.v1.dev.service.DevService;
-import com.example.demo.common.util.DuCrypto;
+import com.example.demo.common.util.CryptoUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.security.GeneralSecurityException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 
 @Slf4j
 @RestController
@@ -22,7 +16,7 @@ import java.security.NoSuchAlgorithmException;
 @RequestMapping("/v1/dev")
 public class DevController {
     private final DevService devService;
-    private final DuCrypto crypto;
+    private final CryptoUtil crypto;
 
     /**
      * Sample of HttpClient(OpenFeign)

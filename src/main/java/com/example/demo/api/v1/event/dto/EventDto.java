@@ -2,10 +2,8 @@ package com.example.demo.api.v1.event.dto;
 
 import com.example.demo.api.v1.event.entity.Event;
 import com.example.demo.api.v1.event.entity.EventKeyword;
-import com.example.demo.common.util.DuDate;
-import com.example.demo.common.validator.IsAnnouncementType;
+import com.example.demo.common.util.DateUtil;
 import com.example.demo.common.validator.IsYn;
-import com.example.demo.constant.EventAnnouncementType;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -18,29 +16,29 @@ public class EventDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class DetailResponse {
-        private long eventId;
+        private Long eventId;
         private String eventNm;
         private String eventApplyUrl;
         private String eventContent;
         private String eventHint;
         private String eventHost;
-        private long eventApplyTypeId;
-        private long eventApplyPlatformId;
-        private String eventAnnouncementType;
-        private long eventAnnouncementDt;
-        private long eventStartDt;
-        private long eventEndDt;
+        private Long eventApplyTypeId;
+        private Long eventApplyPlatformId;
+        private Long eventAnnouncementTypeId;
+        private Long eventAnnouncementDt;
+        private Long eventStartDt;
+        private Long eventEndDt;
         private String deleteYn;
         private String blockYn;
-        private long eventImageFileId;
+        private Long eventImageFileId;
         private List<EventKeyword> keywordList;
-        private long eventViews;
-        private long eventApplicants;
-        private long eventInterests;
-        private long registerMemberId;
-        private long registerDtm;
-        private long updateMemberId;
-        private long updateDtm;
+        private Long eventViews;
+        private Long eventApplicants;
+        private Long eventInterests;
+        private Long registerMemberId;
+        private Long registerDtm;
+        private Long updateMemberId;
+        private Long updateDtm;
 
         @Builder
         public DetailResponse(Event event, List<EventKeyword> keywordList) {
@@ -52,12 +50,12 @@ public class EventDto {
             this.eventHost = event.getEventHost();
             this.eventApplyTypeId = event.getEventApplyTypeId();
             this.eventApplyPlatformId = event.getEventApplyPlatformId();
-            if (event.getEventAnnouncementType() != null)
-                this.eventAnnouncementType = event.getEventAnnouncementType().getValue();
+            if (event.getEventAnnouncementTypeId() != null)
+                this.eventAnnouncementTypeId = event.getEventAnnouncementTypeId();
             if (event.getEventAnnouncementDt() != null)
-                this.eventAnnouncementDt = DuDate.toUnix(event.getEventAnnouncementDt());
-            this.eventStartDt = DuDate.toUnix(event.getEventStartDt());
-            this.eventEndDt = DuDate.toUnix(event.getEventEndDt());
+                this.eventAnnouncementDt = DateUtil.toUnix(event.getEventAnnouncementDt());
+            this.eventStartDt = DateUtil.toUnix(event.getEventStartDt());
+            this.eventEndDt = DateUtil.toUnix(event.getEventEndDt());
             this.deleteYn = event.getDeleteYn();
             this.blockYn = event.getBlockYn();
             this.eventImageFileId = event.getEventImageFileId();
@@ -66,9 +64,9 @@ public class EventDto {
             this.eventApplicants = event.getEventApplicants();
             this.eventInterests = event.getEventInterests();
             this.registerMemberId = event.getRegisterMemberId();
-            this.registerDtm = DuDate.toUnix(event.getRegisterDtm());
+            this.registerDtm = DateUtil.toUnix(event.getRegisterDtm());
             this.updateMemberId = event.getUpdateMemberId();
-            this.updateDtm = DuDate.toUnix(event.getUpdateDtm());
+            this.updateDtm = DateUtil.toUnix(event.getUpdateDtm());
         }
     }
 
@@ -96,8 +94,7 @@ public class EventDto {
         private Long eventApplyTypeId;
         @NotNull
         private Long eventApplyPlatformId;
-        @IsAnnouncementType
-        private String eventAnnouncementType;
+        private Long eventAnnouncementTypeId;
         private Long eventAnnouncementDt;
         @NotNull
         private Long eventStartDt;
@@ -121,10 +118,10 @@ public class EventDto {
                     .eventHost(this.eventHost)
                     .eventApplyTypeId(this.eventApplyTypeId)
                     .eventApplyPlatformId(this.eventApplyPlatformId)
-                    .eventAnnouncementType(EventAnnouncementType.findCodeByKey(this.eventAnnouncementType).orElse(null))
-                    .eventAnnouncementDt(DuDate.toDate(this.eventAnnouncementDt))
-                    .eventStartDt(DuDate.toDate(this.eventStartDt))
-                    .eventEndDt(DuDate.toDate(this.eventEndDt))
+                    .eventAnnouncementTypeId(this.eventAnnouncementTypeId)
+                    .eventAnnouncementDt(DateUtil.toDate(this.eventAnnouncementDt))
+                    .eventStartDt(DateUtil.toDate(this.eventStartDt))
+                    .eventEndDt(DateUtil.toDate(this.eventEndDt))
                     .eventImageFileId(this.eventImageFileId)
                     .build();
         }
@@ -133,7 +130,7 @@ public class EventDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class RegisterResponse {
-        private long eventId;
+        private Long eventId;
 
         @Builder
         public RegisterResponse(Long eventId) {

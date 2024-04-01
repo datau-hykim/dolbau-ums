@@ -10,16 +10,17 @@ import java.util.TimeZone;
 @UtilityClass
 public class DateUtil {
 
-    public DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public DateTimeFormatter YYYY_MM_DD_HH_MM_SS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public final DateTimeFormatter YYYY_MM_DD = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public final DateTimeFormatter YYYY_MM_DD_HH_MM = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public final DateTimeFormatter YYYY_MM_DD_HH_MM_SS = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public long toUnix(LocalDateTime localDateTime) {
         if(localDateTime == null) return 0;
         return localDateTime.atZone(TimeZone.getDefault().toZoneId()).toEpochSecond();
     }
 
-    public LocalDateTime toDate(long unixTimeMillis) {
-        return LocalDateTime.ofInstant(Instant.ofEpochMilli(unixTimeMillis),
+    public LocalDateTime toDate(long unixTimeSeconds) {
+        return LocalDateTime.ofInstant(Instant.ofEpochSecond(unixTimeSeconds),
                 TimeZone.getDefault().toZoneId());
     }
 

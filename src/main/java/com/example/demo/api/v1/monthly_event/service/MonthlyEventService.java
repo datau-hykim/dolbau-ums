@@ -34,7 +34,8 @@ public class MonthlyEventService {
                         .build()
         );
 
-        List<MonthlyEventDto.ResponseList> list = eventList.stream().map(MonthlyEventDto.ResponseList::new)
+        List<MonthlyEventDto.ResponseList> list = eventList.stream()
+                .map(MonthlyEventDto.ResponseList::new)
                 .collect(Collectors.toList());
 
         return Page.<MonthlyEventDto.ResponseList>builder()

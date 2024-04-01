@@ -10,9 +10,9 @@ import java.time.LocalDateTime;
 @Builder
 public class EventKeyword {
 
-  private long keywordId;
+  private Long keywordId;
   private String keywordNm;
-  private long keywordCategoryId;
+  private Long keywordCategoryId;
   private String keywordCategoryNm;
 
 }

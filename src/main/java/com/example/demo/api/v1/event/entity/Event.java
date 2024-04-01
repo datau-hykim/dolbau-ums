@@ -1,6 +1,5 @@
 package com.example.demo.api.v1.event.entity;
 
-import com.example.demo.constant.EventAnnouncementType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,7 +18,7 @@ public class Event {
   private String eventHost;
   private Long eventApplyTypeId;
   private Long eventApplyPlatformId;
-  private EventAnnouncementType eventAnnouncementType;
+  private Long eventAnnouncementTypeId;
   private LocalDateTime eventAnnouncementDt;
   private LocalDateTime eventStartDt;
   private LocalDateTime eventEndDt;
