@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface EventMapper {
     Optional<Event> selectEventByEventId(Long eventId);
     List<EventKeyword> selectEventKeywordsByEventId(Long eventId);
+    Long insertEvent(Event event);
+
 }
