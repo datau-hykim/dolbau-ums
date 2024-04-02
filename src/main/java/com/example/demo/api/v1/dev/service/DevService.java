@@ -11,15 +11,16 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class DevService {
-    /*private final PostClient postClient;
-    private final CommentClient commentClient;*/
+    private final PostClient postClient;
+    private final CommentClient commentClient;
+
     public DevDto.PostDetailResponse selectPostDetailByPostId(Long postId) {
-        /*PostDto.Response post = postClient.getPostById(postId);
-        CommentDto.Response comment = commentClient.getCommentsByPostId(postId);*/
+        PostDto.Response post = postClient.getPostById(postId);
+        CommentDto.Response comment = commentClient.getCommentsByPostId(postId);
 
         return DevDto.PostDetailResponse.builder()
-                .post(null)
-                .comment(null)
+                .post(post)
+                .comment(comment)
                 .build();
     }
 }

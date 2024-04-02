@@ -20,7 +20,6 @@ public class DevController {
 
     /**
      * Sample of HttpClient(OpenFeign)
-     * https://jsonplaceholder.typicode.com에 데이터를 요청해 가공하고 응답한다.
      */
     @GetMapping("/posts/{postId}")
     public DevDto.PostDetailResponse getPostDetailByPostId(@PathVariable Long postId) {
