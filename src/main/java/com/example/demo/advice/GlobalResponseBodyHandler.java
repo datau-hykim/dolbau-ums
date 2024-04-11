@@ -4,6 +4,7 @@ import com.example.demo.common.ApiResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
@@ -21,7 +22,7 @@ public class GlobalResponseBodyHandler implements ResponseBodyAdvice<Object> {
 
     @Override
     public Object beforeBodyWrite (Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
-        if (body instanceof ApiResponse) {
+        if (body instanceof ApiResponse || body instanceof ResponseEntity<?>) {
             return body;
         }
 
