@@ -25,6 +25,7 @@ public class Event {
   private String deleteYn;
   private String blockYn;
   private Long eventImageFileId;
+  private String eventImageUrl;
   private Long eventViews;
   private Long eventApplicants;
   private Long eventInterests;

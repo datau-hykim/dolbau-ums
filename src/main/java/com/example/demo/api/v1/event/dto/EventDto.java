@@ -2,8 +2,10 @@ package com.example.demo.api.v1.event.dto;
 
 import com.example.demo.api.v1.event.entity.Event;
 import com.example.demo.api.v1.event.entity.EventKeyword;
+import com.example.demo.common.auth.Member;
 import com.example.demo.common.util.DateUtil;
 import com.example.demo.common.validator.IsYn;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -30,7 +32,7 @@ public class EventDto {
         private Long eventEndDt;
         private String deleteYn;
         private String blockYn;
-        private Long eventImageFileId;
+        private String eventImageUrl;
         private List<EventKeyword> keywordList;
         private Long eventViews;
         private Long eventApplicants;
@@ -41,7 +43,7 @@ public class EventDto {
         private Long updateDtm;
 
         @Builder
-        public DetailResponse(Event event, List<EventKeyword> keywordList) {
+        public DetailResponse(Event event, List<EventKeyword> keywordList, String imageHost) {
             this.eventId = event.getEventId();
             this.eventNm = event.getEventNm();
             this.eventApplyUrl = event.getEventApplyUrl();
@@ -58,7 +60,7 @@ public class EventDto {
             this.eventEndDt = DateUtil.toUnix(event.getEventEndDt());
             this.deleteYn = event.getDeleteYn();
             this.blockYn = event.getBlockYn();
-            this.eventImageFileId = event.getEventImageFileId();
+            this.eventImageUrl = imageHost + event.getEventImageUrl();
             this.keywordList = keywordList;
             this.eventViews = event.getEventViews();
             this.eventApplicants = event.getEventApplicants();
@@ -102,14 +104,11 @@ public class EventDto {
         private Long eventEndDt;
         @NotNull
         private Long eventImageFileId;
-        /**
-         * 필요시 NotEmpty와 함께 사용
-         */
+        @NotNull
         @IsYn
-        @NotEmpty
         private String testYn;
 
-        public Event toEntity() {
+        public Event toEntity(Long memberId) {
             return Event.builder()
                     .eventNm(this.eventNm)
                     .eventApplyUrl(this.eventApplyUrl)
@@ -123,6 +122,8 @@ public class EventDto {
                     .eventStartDt(DateUtil.toDate(this.eventStartDt))
                     .eventEndDt(DateUtil.toDate(this.eventEndDt))
                     .eventImageFileId(this.eventImageFileId)
+                    .registerMemberId(memberId)
+                    .updateMemberId(memberId)
                     .build();
         }
     }

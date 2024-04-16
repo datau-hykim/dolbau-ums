@@ -59,6 +59,11 @@ logging:
     root: info
   config: "classpath:logger/logback.xml"
 
+internal-service:
+  image:
+    name: "eventu-image"
+    url: "http://5.0.50.151:9090/images"
+
 external-servers:
   comment-client:
     endpoint: "https://jsonplaceholder.typicode.com/comments"

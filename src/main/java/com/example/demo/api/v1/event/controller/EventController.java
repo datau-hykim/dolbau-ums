@@ -3,6 +3,8 @@ package com.example.demo.api.v1.event.controller;
 import com.example.demo.api.v1.event.dto.EventDto;
 import com.example.demo.api.v1.event.entity.Event;
 import com.example.demo.api.v1.event.service.EventService;
+import com.example.demo.common.auth.AuthParam;
+import com.example.demo.common.auth.Member;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +24,7 @@ public class EventController {
 
     @PostMapping
     ("")
-    public EventDto.RegisterResponse registerEvent(@Valid @RequestBody EventDto.RegisterRequest params) {
-        return eventService.registerEvent(params);
+    public EventDto.RegisterResponse registerEvent(@AuthParam Member member, @Valid @RequestBody EventDto.RegisterRequest params) {
+        return eventService.registerEvent(member.getMemberId(), params);
     }
 }

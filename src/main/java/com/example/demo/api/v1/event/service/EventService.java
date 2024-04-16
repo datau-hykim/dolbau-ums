@@ -8,6 +8,7 @@ import com.example.demo.common.exception.BizException;
 import com.example.demo.constant.error.ErrorCodeImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,6 +19,9 @@ import java.util.List;
 public class EventService {
     private final EventMapper eventMapper;
 
+    @Value("${internal-service.image.url}")
+    private String imageHost;
+
     public EventDto.DetailResponse getEventDetailByEventId(Long eventId) {
         Event event = eventMapper.selectEventByEventId(eventId)
                 .orElseThrow(() -> new BizException(ErrorCodeImpl.EVENT.NOT_FOUND_EVENT));
@@ -26,11 +30,12 @@ public class EventService {
         return EventDto.DetailResponse.builder()
                 .event(event)
                 .keywordList(keywordList)
+                .imageHost(imageHost)
                 .build();
     }
 
-    public EventDto.RegisterResponse registerEvent(EventDto.RegisterRequest params) {
-        Event event = params.toEntity();
+    public EventDto.RegisterResponse registerEvent(Long memberId, EventDto.RegisterRequest params) {
+        Event event = params.toEntity(memberId);
 
         int rowsAffected = eventMapper.insertEvent(event);
         if (rowsAffected < 1) {

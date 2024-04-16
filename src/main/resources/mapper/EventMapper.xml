@@ -7,28 +7,28 @@
             parameterType="java.lang.Long"
             resultType="com.example.demo.api.v1.event.entity.Event">
         select
-            event_id
-             , event_nm
-             , event_apply_url
-             , event_content
-             , event_hint
-             , event_host
-             , event_apply_type_id
-             , event_announcement_type_id
-             , event_announcement_dt
-             , event_apply_platform_id
-             , event_start_dt
-             , event_end_dt
-             , delete_yn
-             , block_yn
-             , event_image_file_id
-             , (select count(*) from event_view_history where event_id = #{eventId}) as `event_views`
-             , (select count(*) from event_apply_history where event_id = #{eventId}) as `event_applicants`
-             , (select count(*) from event_interest_history where event_id = #{eventId}) as `event_interests`
-             , register_member_id
-             , register_dtm
-             , update_member_id
-             , update_dtm
+            event_id,
+            event_nm,
+            event_apply_url,
+            event_content,
+            event_hint,
+            event_host,
+            event_apply_type_id,
+            event_announcement_type_id,
+            event_announcement_dt,
+            event_apply_platform_id,
+            event_start_dt,
+            event_end_dt,
+            delete_yn,
+            block_yn,
+            (select concat(f.file_path, '/', f.file_nm) from file f where f.file_id = event_image_file_id) as `event_image_url`,
+            (select count(*) from event_view_history where event_id = #{eventId}) as `event_views`,
+            (select count(*) from event_apply_history where event_id = #{eventId}) as `event_applicants`,
+            (select count(*) from event_interest_history where event_id = #{eventId}) as `event_interests`,
+            register_member_id,
+            register_dtm,
+            update_member_id,
+            update_dtm
         from event
         where event_id = #{eventId}
     </select>
@@ -36,11 +36,11 @@
             parameterType="java.lang.Long"
             resultType="com.example.demo.api.v1.event.entity.EventKeyword">
         select
-            ek.event_id
-             , k.keyword_id
-             , k.keyword_nm
-             , kc.keyword_category_id
-             , kc.keyword_category_nm
+            ek.event_id,
+            k.keyword_id,
+            k.keyword_nm,
+            kc.keyword_category_id,
+            kc.keyword_category_nm
         from event_keyword `ek`
                  left join keyword `k` on ek.keyword_id = k.keyword_id
                  left join keyword_category `kc` on k.keyword_category_id = kc.keyword_category_id
@@ -53,37 +53,37 @@
             keyProperty="eventId"
     >
         insert into event (
-            event_id
-            , event_nm
-            , event_apply_url
-            , event_content
-            , event_hint
-            , event_host
-            , event_apply_type_id
-            , event_apply_platform_id
-            , event_announcement_type_id
-            , event_announcement_dt
-            , event_start_dt
-            , event_end_dt
-            , event_image_file_id
-            , register_member_id
-            , update_member_id
+            event_id,
+            event_nm,
+            event_apply_url,
+            event_content,
+            event_hint,
+            event_host,
+            event_apply_type_id,
+            event_apply_platform_id,
+            event_announcement_type_id,
+            event_announcement_dt,
+            event_start_dt,
+            event_end_dt,
+            event_image_file_id,
+            register_member_id,
+            update_member_id
         ) values (
-            #{eventId}
-            , #{eventNm}
-            , #{eventApplyUrl}
-            , #{eventContent}
-            , #{eventHint}
-            , #{eventHost}
-            , #{eventApplyTypeId}
-            , #{eventApplyPlatformId}
-            , #{eventAnnouncementTypeId}
-            , #{eventAnnouncementDt}
-            , #{eventStartDt}
-            , #{eventEndDt}
-            , #{eventImageFileId}
-            , 1
-            , 1
+            #{eventId},
+            #{eventNm},
+            #{eventApplyUrl},
+            #{eventContent},
+            #{eventHint},
+            #{eventHost},
+            #{eventApplyTypeId},
+            #{eventApplyPlatformId},
+            #{eventAnnouncementTypeId},
+            #{eventAnnouncementDt},
+            #{eventStartDt},
+            #{eventEndDt},
+            #{eventImageFileId},
+            1,
+            1
         )
     </insert>
 </mapper>

@@ -8,6 +8,7 @@ import com.example.demo.api.v1.event.service.EventService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,7 +18,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.example.demo.ApiDocumentUtils.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -34,6 +34,9 @@ class EventControllerTest {
 
     @MockBean
     private EventService eventService;
+
+    @Value("${internal-service.image.url}")
+    String imageHost;
 
     @DisplayName("이벤트 상세 조회")
     @Test
@@ -52,7 +55,7 @@ class EventControllerTest {
                         .eventEndDt(LocalDateTime.now().plusDays(30))
                         .deleteYn("N")
                         .blockYn("N")
-                        .eventImageFileId(1L)
+                        .eventImageUrl("https://eventu.co.kr/file/012349a-saf-231-qw-asdasd")
                         .eventViews(1024L)
                         .eventApplicants(123L)
                         .eventInterests(17L)
@@ -62,8 +65,9 @@ class EventControllerTest {
                         .updateDtm(LocalDateTime.now())
                         .build(),
                 List.of(
-                        new EventKeyword(1, "스타벅스", 2, "커피")
-                )
+                        new EventKeyword(1L, "스타벅스", 2L, "커피")
+                ),
+                imageHost
         );
 
         // given
@@ -100,7 +104,7 @@ class EventControllerTest {
                                 .setField("eventEndDt",JsonFieldType.NUMBER,"이벤트 종료일",true)
                                 .setField("deleteYn",JsonFieldType.STRING,"삭제여부",true)
                                 .setField("blockYn",JsonFieldType.STRING,"차단여부",true)
-                                .setField("eventImageFileId",JsonFieldType.NUMBER,"이벤트 이미지파일 ID",true)
+                                .setField("eventImageUrl",JsonFieldType.STRING,"이벤트 이미지 URL",true)
                                 .setField("keywordList[].keywordId",JsonFieldType.NUMBER,"키워드 ID",true)
                                 .setField("keywordList[].keywordNm",JsonFieldType.STRING,"키워드명",true)
                                 .setField("keywordList[].keywordCategoryId",JsonFieldType.NUMBER,"키워드 카테고리 ID",true)
