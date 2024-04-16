@@ -31,8 +31,11 @@ public class EventService {
 
     public EventDto.RegisterResponse registerEvent(EventDto.RegisterRequest params) {
         Event event = params.toEntity();
-        // mybatis에 의해, 생성된 이벤트의 id가 event 객체에 주입됨
-        eventMapper.insertEvent(event);
+
+        int rowsAffected = eventMapper.insertEvent(event);
+        if (rowsAffected < 1) {
+            throw new BizException(ErrorCodeImpl.INTERNAL_SERVER_ERROR);
+        }
 
         return EventDto.RegisterResponse.builder()
                 .eventId(event.getEventId())
