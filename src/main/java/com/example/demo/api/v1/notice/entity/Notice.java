@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class Notice {
-    private int noticeId;
+    private long noticeId;
     private String noticeTitle;
     private String noticeContent;
     private String deleteYn;

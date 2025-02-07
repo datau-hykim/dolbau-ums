@@ -1,9 +1,7 @@
 package com.example.demo.api.v1.notice.controller;
 
-import com.example.demo.api.v1.notice.dto.NoticeDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @Slf4j
@@ -19,10 +17,7 @@ public class NoticeController {
     }
 
     @GetMapping()
-    public void getNoticeList(Pageable pageable){
-        log.info("pageable {}", pageable);
-        log.info("pageable size {}", pageable.getPageSize());
-        log.info("pageable offset {}", pageable.getOffset());
-        log.info("pageable pageNumber {}", pageable.getPageNumber());
+    public void getNoticeList(){
+        log.info("get notice list");
     }
 }
