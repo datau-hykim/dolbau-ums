@@ -5,6 +5,7 @@
 <mapper namespace="com.example.demo.api.v1.notice.mapper.NoticeMapper">
     <select id="selectNoticeList"
             resultType="com.example.demo.api.v1.notice.entity.Notice"
+            parameterType="com.datau.dolbau.boilerplate.entity.page.RequestPage"
     >
         SELECT
             notice_id,
@@ -15,6 +16,29 @@
             update_dtm
         FROM
             notice
+        <where>
+            <if test="param.noticeTitle != null and param.noticeTitle != ''">
+                AND notice_title LIKE CONCAT('%', #{param.noticeTitle}, '%')
+            </if>
+            <if test="param.noticeContent != null and param.noticeContent != ''">
+                AND notice_content LIKE CONCAT('%', #{param.noticeContent}, '%')
+            </if>
+        </where>
         LIMIT ${pagination.offset} , ${pagination.perPage}
+    </select>
+
+    <select id="selectNoticeCount" parameterType="com.datau.dolbau.boilerplate.entity.page.RequestPage">
+        SELECT
+            COUNT(*)
+        FROM
+            notice
+        <where>
+            <if test="param.noticeTitle != null and param.noticeTitle != ''">
+                AND notice_title LIKE CONCAT('%', #{param.noticeTitle}, '%')
+            </if>
+            <if test="param.noticeContent != null and param.noticeContent != ''">
+                AND notice_content LIKE CONCAT('%', #{param.noticeContent}, '%')
+            </if>
+        </where>
     </select>
 </mapper>

@@ -36,17 +36,13 @@ mybatis:
   mapper-locations: "classpath:mapper/**.xml"
   configuration:
     map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-logging:
-  level:
-    root: info
-  config: "classpath:logger/logback.xml"
+crypto:
+  secret: "datauniverse2024" # 128 bits
+  iv: "datauniverse2024" # 128 bits
 
 jwt:
   secret: "datauniverse2024datauniverse2024" # 256 bits
   access-token-expiration-period: 21600
   refresh-token-expiration-period: 7776000  # 90일, 90 * 24 * 60 * 60
-
-crypto:
-  secret: "datauniverse2024" # 128 bits
-  iv: "datauniverse2024" # 128 bits
